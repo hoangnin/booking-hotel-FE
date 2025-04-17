@@ -1,0 +1,65 @@
+.aspect-ratio {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px; /* Rounded corners */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+.aspect-ratio::before {
+  content: "";
+  display: block;
+  padding-top: 50%; /* 2:1 aspect ratio (height = 50% of width) */
+}
+
+.aspect-ratio img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px; /* Ensure the image matches the container's rounded corners */
+  transition: transform 0.3s ease;
+}
+
+.aspect-ratio:hover {
+  transform: scale(1.05); /* Slight zoom effect */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+.aspect-ratio:hover ~ .aspect-ratio {
+  transform: scale(0.95); /* Scale down surrounding images */
+}
+
+.view-all-icon {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-all-icon:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.highlight {
+  animation: highlight 0.5s ease-in-out 4; /* Flash twice */
+}
+
+@keyframes highlight {
+  0%, 100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(255, 255, 0, 0.5); /* Yellow highlight */
+  }
+}

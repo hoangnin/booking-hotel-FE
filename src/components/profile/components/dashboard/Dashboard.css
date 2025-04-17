@@ -1,0 +1,37 @@
+.dashboard-container {
+    padding: 24px;
+    background-color: #f9f9f9;
+  }
+  
+  .charts-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 24px;
+  }
+  
+  .chart-box {
+    flex: 1;
+    min-width: 300px;
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .revenue-chart-box {
+    margin-top: 32px;
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .chart-title {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+  }
+  
