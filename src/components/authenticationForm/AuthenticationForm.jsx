@@ -206,9 +206,10 @@ export function AuthenticationForm({
           variant="default"
           radius="xl"
           onClick={() => {
+            const baseUrl = import.meta.env.VITE_API_BASE_URL;
+            const cleanedBaseUrl = baseUrl.replace(/\/api\/?$/, "");
             window.location.href =
-              import.meta.env.VITE_API_BASE_URL +
-              "/oauth2/authorization/google";
+              cleanedBaseUrl + "/oauth2/authorization/google";
           }}
           leftSection={
             <img
