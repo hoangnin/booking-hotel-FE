@@ -207,7 +207,8 @@ export function AuthenticationForm({
           radius="xl"
           onClick={() => {
             window.location.href =
-              "http://localhost:8080/oauth2/authorization/google";
+              import.meta.env.VITE_API_BASE_URL +
+              "/oauth2/authorization/google";
           }}
           leftSection={
             <img
