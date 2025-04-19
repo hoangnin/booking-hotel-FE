@@ -11,13 +11,13 @@ import {
   TextInput,
   LoadingOverlay,
   Box,
+  Modal,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { upperFirst, useToggle, useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
-import { GoogleButton } from "./GoogleButton";
 import { TwitterButton } from "./TwitterButton";
-import { login, signup } from "../../util/http";
+import { login, signup, forgotPassword, userInfo } from "../../util/http";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { login as loginAction } from "../../store/slices/authSlice";
@@ -36,7 +36,11 @@ export function AuthenticationForm({
 }) {
   const [type, toggle] = useToggle(["login", "register"], initialType);
   const [loading, { toggle: toggleLoading }] = useDisclosure(false);
-  const [isPasswordFocused, setPasswordFocused] = useState(false); // State to track password focus
+  const [isPasswordFocused, setPasswordFocused] = useState(false);
+  const [
+    forgotPasswordOpened,
+    { open: openForgotPassword, close: closeForgotPassword },
+  ] = useDisclosure(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -68,8 +72,21 @@ export function AuthenticationForm({
     },
   });
 
+  const forgotPasswordForm = useForm({
+    initialValues: {
+      email: "",
+    },
+    validate: {
+      email: validateEmail,
+    },
+  });
+
   const { mutate: loginMutate } = useMutation({
-    mutationFn: login,
+    mutationFn: async (values) => {
+      const loginResponse = await login(values);
+      const userInfoResponse = await userInfo();
+      return userInfoResponse;
+    },
     onSuccess: (data) => {
       toggleLoading();
       dispatch(loginAction(data));
@@ -128,6 +145,35 @@ export function AuthenticationForm({
     },
   });
 
+  const { mutate: forgotPasswordMutate } = useMutation({
+    mutationFn: forgotPassword,
+    onSuccess: (data) => {
+      toggleLoading();
+      closeForgotPassword();
+      notifications.show({
+        classNames: classes,
+        title: "Password Reset Email Sent",
+        message:
+          data.message ||
+          "Please check your email for password reset instructions.",
+        color: "green",
+      });
+    },
+    onError: (error) => {
+      toggleLoading();
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "An error occurred. Please try again.";
+      notifications.show({
+        classNames: classes,
+        title: "Failed to Send Reset Email",
+        message: errorMessage,
+        color: "red",
+      });
+    },
+  });
+
   const handleSubmit = (values) => {
     toggleLoading();
     if (type === "login") {
@@ -135,6 +181,11 @@ export function AuthenticationForm({
     } else {
       signupMutate(values);
     }
+  };
+
+  const handleForgotPassword = (values) => {
+    toggleLoading();
+    forgotPasswordMutate(values.email);
   };
 
   const form = type === "login" ? loginForm : registerForm;
@@ -151,8 +202,33 @@ export function AuthenticationForm({
       </Text>
 
       <Group grow mb="md" mt="md">
-        <GoogleButton radius="xl">Google</GoogleButton>
-        <TwitterButton radius="xl">Twitter</TwitterButton>
+        <Button
+          variant="default"
+          radius="xl"
+          onClick={() => {
+            window.location.href =
+              "http://localhost:8080/oauth2/authorization/google";
+          }}
+          leftSection={
+            <img
+              src="https://www.google.com/favicon.ico"
+              alt="Google"
+              style={{ width: "20px", height: "20px" }}
+            />
+          }
+          styles={{
+            root: {
+              backgroundColor: "#fff",
+              color: "#000",
+              border: "1px solid #ccc",
+              "&:hover": {
+                backgroundColor: "#f5f5f5",
+              },
+            },
+          }}
+        >
+          Sign in with Google
+        </Button>
       </Group>
 
       <Divider
@@ -187,8 +263,8 @@ export function AuthenticationForm({
             placeholder="Your password"
             {...form.getInputProps("password")}
             radius="md"
-            onFocus={() => setPasswordFocused(true)} // Set focus state
-            onBlur={() => setPasswordFocused(false)} // Reset focus state
+            onFocus={() => setPasswordFocused(true)}
+            onBlur={() => setPasswordFocused(false)}
           />
           {type === "register" && isPasswordFocused && (
             <PasswordStrengthChecker password={form.values.password} />
@@ -203,17 +279,30 @@ export function AuthenticationForm({
         </Stack>
 
         <Group justify="space-between" mt="xl">
-          <Anchor
-            component="button"
-            type="button"
-            c="dimmed"
-            onClick={() => toggle()}
-            size="xs"
-          >
-            {type === "register"
-              ? "Already have an account? Login"
-              : "Don't have an account? Register"}
-          </Anchor>
+          <Group>
+            <Anchor
+              component="button"
+              type="button"
+              c="dimmed"
+              onClick={() => toggle()}
+              size="xs"
+            >
+              {type === "register"
+                ? "Already have an account? Login"
+                : "Don't have an account? Register"}
+            </Anchor>
+            {type === "login" && (
+              <Anchor
+                component="button"
+                type="button"
+                c="dimmed"
+                onClick={openForgotPassword}
+                size="xs"
+              >
+                Forgot password?
+              </Anchor>
+            )}
+          </Group>
           <Button
             type="submit"
             radius="xl"
@@ -223,6 +312,28 @@ export function AuthenticationForm({
           </Button>
         </Group>
       </form>
+
+      <Modal
+        opened={forgotPasswordOpened}
+        onClose={closeForgotPassword}
+        title="Reset Password"
+        centered
+      >
+        <form onSubmit={forgotPasswordForm.onSubmit(handleForgotPassword)}>
+          <Stack>
+            <TextInput
+              required
+              label="Email"
+              placeholder="Your email"
+              {...forgotPasswordForm.getInputProps("email")}
+              radius="md"
+            />
+            <Button type="submit" radius="xl" loading={loading}>
+              Send Reset Link
+            </Button>
+          </Stack>
+        </form>
+      </Modal>
     </Box>
   );
 }

@@ -53,7 +53,7 @@ function ProfileTabs({ profileData: initialProfileData }) {
   const handleImageUpload = (uploadedFiles) => {
     setProfileData((prev) => ({
       ...prev,
-      profileImage: uploadedFiles[0]?.preview || null,
+      profileImage: uploadedFiles[0]?.url || null,
     }));
   };
 

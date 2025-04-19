@@ -8,12 +8,14 @@ import {
   Container,
   SimpleGrid,
   ActionIcon,
+  LoadingOverlay,
+  Text,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IconHeart, IconBuilding, IconArrowLeft } from "@tabler/icons-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  userInfo,
+  userInfo as fetchUserInfo,
   getFavorites,
   fetchHotel,
   getHotelByOwner,
@@ -28,36 +30,68 @@ import {
   startLoading,
   stopLoading,
 } from "../../../../store/slices/loadingSlice";
+
 export default function Infomation() {
+  const userInfo = useSelector((state) => state.auth.userInfo);
   const dispatch = useDispatch();
-  const [isAddHotelModalOpen, setIsAddHotelModalOpen] = useState(false); // State quản lý modal
+  const [isAddHotelModalOpen, setIsAddHotelModalOpen] = useState(false);
   const queryClient = useQueryClient();
   const [isEditing, setIsEditing] = useState(false);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const [profileData, setProfileData] = useState({
+    avatar: "",
+    username: "",
+    email: "",
+    phone: "",
+    address: "",
+    role: "",
+  });
+  const [isHotelOwner, setIsHotelOwner] = useState(false);
+
+  const {
+    data: userData,
+    isLoading: isUserLoading,
+    isError: isUserError,
+    error: userError,
+  } = useQuery({
+    queryKey: ["userInfo"],
+    queryFn: () => fetchUserInfo(),
+    enabled: isLoggedIn,
+    retry: 1,
+  });
+
+  useEffect(() => {
+    if (userData && userData.roles) {
+      const hasHotelRole = userData.roles.some(
+        (role) => role.name === "ROLE_HOTEL"
+      );
+      setIsHotelOwner(hasHotelRole);
+    }
+  }, [userData]);
 
   const openAddHotelModal = () => setIsAddHotelModalOpen(true);
   const closeAddHotelModal = () => setIsAddHotelModalOpen(false);
+
   const handleAddHotel = async (newHotelData) => {
     try {
-      // Định dạng lại price trước khi gửi
       const formattedData = {
         ...newHotelData,
         price: {
-          currency: "VND", // Đặt giá trị cố định cho currency
-          price: parseFloat(newHotelData.price), // Chuyển price thành số thực
+          currency: "VND",
+          price: parseFloat(newHotelData.price),
         },
       };
 
       console.log("Formatted data sent to API:", formattedData);
 
-      await addHotelByOwner(formattedData); // Gửi request thêm khách sạn
-      queryClient.invalidateQueries(["hotelsOwner"]); // Làm mới danh sách khách sạn
+      await addHotelByOwner(formattedData);
+      queryClient.invalidateQueries(["hotelsOwner"]);
       notifications.show({
         title: "Success",
         message: "Hotel added successfully!",
         color: "green",
       });
-      closeAddHotelModal(); // Đóng modal sau khi thêm thành công
+      closeAddHotelModal();
     } catch (error) {
       console.error("Error adding hotel:", error);
       notifications.show({
@@ -71,19 +105,10 @@ export default function Infomation() {
   };
 
   const {
-    data: userData,
-    isLoading: isUserLoading,
-    isError: isUserError,
-  } = useQuery({
-    queryKey: ["userInfo"],
-    queryFn: userInfo,
-    enabled: isLoggedIn,
-  });
-
-  const {
     data: favoriteHotels = [],
     isLoading: isFavoritesLoading,
     isError: isFavoritesError,
+    error: favoritesError,
   } = useQuery({
     queryKey: ["favorites"],
     queryFn: async () => {
@@ -92,12 +117,14 @@ export default function Infomation() {
       return Promise.all(hotelPromises);
     },
     enabled: isLoggedIn,
+    retry: 1,
   });
 
   const {
     data: hotelsOwner = [],
     isLoading: isHotelsLoading,
     isError: isHotelsError,
+    error: hotelsError,
   } = useQuery({
     queryKey: ["hotelsOwner"],
     queryFn: async () => {
@@ -105,20 +132,13 @@ export default function Infomation() {
       const hotelOwnerPromises = hotelOwnerIds.map((id) => fetchHotel({ id }));
       return Promise.all(hotelOwnerPromises);
     },
-    enabled: isLoggedIn,
-  });
-
-  const [profileData, setProfileData] = useState({
-    avatar: "",
-    username: "",
-    email: "",
-    phone: "",
-    address: "",
-    role: "",
+    enabled: isLoggedIn && isHotelOwner,
+    retry: 1,
   });
 
   useEffect(() => {
     if (userData) {
+      console.log("User data received:", userData);
       setProfileData({
         avatar: userData.avatarUrl || "https://via.placeholder.com/150",
         username: userData.username || "",
@@ -133,19 +153,46 @@ export default function Infomation() {
   const handleFavoriteChange = (id, isFavorite) => {
     if (!isFavorite) {
       queryClient.invalidateQueries(["favorites"]);
-      // (ở đây vì đang dùng React Query, bạn nên dùng `useQueryClient().invalidateQueries()` nếu muốn update lại danh sách)
     }
   };
 
   const toggleEdit = () => setIsEditing((prev) => !prev);
 
-  if (isUserLoading || isFavoritesLoading || isHotelsLoading) {
-    dispatch(startLoading());
-  } else {
-    dispatch(stopLoading());
+  useEffect(() => {
+    if (isUserLoading || isFavoritesLoading || isHotelsLoading) {
+      dispatch(startLoading());
+    } else {
+      dispatch(stopLoading());
+    }
+  }, [isUserLoading, isFavoritesLoading, isHotelsLoading, dispatch]);
+
+  if (!isLoggedIn) {
+    return <div>Please log in to view your profile</div>;
   }
-  if (isUserError || isFavoritesError || isHotelsError)
-    return <div>Error loading user information</div>;
+
+  if (isUserError || isFavoritesError || isHotelsError) {
+    console.error("Error details:", {
+      userError,
+      favoritesError,
+      hotelsError,
+    });
+    return (
+      <div className="p-4">
+        <Text color="red" size="lg" weight={500}>
+          Error loading user information
+        </Text>
+        <Text size="sm" color="dimmed" mt="sm">
+          {userError?.message ||
+            favoritesError?.message ||
+            hotelsError?.message}
+        </Text>
+      </div>
+    );
+  }
+
+  if (isUserLoading || isFavoritesLoading || isHotelsLoading) {
+    return <LoadingOverlay visible={true} />;
+  }
 
   if (isEditing) {
     return (
@@ -171,27 +218,9 @@ export default function Infomation() {
           <Avatar src={profileData.avatar} size="xl" radius="xl" />
         </div>
         <form className="space-y-4">
-          <TextInput
-            label="Username"
-            name="username"
-            value={profileData.username}
-            disabled
-            className="w-full"
-          />
-          <TextInput
-            label="Email"
-            name="email"
-            value={profileData.email}
-            disabled
-            className="w-full"
-          />
-          <TextInput
-            label="Phone"
-            name="phone"
-            value={profileData.phone}
-            disabled
-            className="w-full"
-          />
+          <TextInput label="Username" value={profileData.username} disabled />
+          <TextInput label="Email" value={profileData.email} disabled />
+          <TextInput label="Phone" value={profileData.phone} disabled />
           <Group position="right" mt="md">
             <Button
               onClick={toggleEdit}
@@ -208,9 +237,11 @@ export default function Infomation() {
           <Tabs.Tab value="favorite" leftSection={<IconHeart size={12} />}>
             Favorite
           </Tabs.Tab>
-          <Tabs.Tab value="hotel" leftSection={<IconBuilding size={12} />}>
-            Hotel
-          </Tabs.Tab>
+          {isHotelOwner && (
+            <Tabs.Tab value="hotel" leftSection={<IconBuilding size={12} />}>
+              Hotel
+            </Tabs.Tab>
+          )}
         </Tabs.List>
 
         <Tabs.Panel value="favorite">
@@ -281,7 +312,7 @@ export default function Infomation() {
           </SimpleGrid>
         </Tabs.Panel>
       </Tabs>
-      {/* Modal thêm khách sạn */}
+
       <HotelModal
         isOpen={isAddHotelModalOpen}
         onClose={closeAddHotelModal}
@@ -305,7 +336,7 @@ export default function Infomation() {
             price: "",
           },
         }}
-        isEdit={false} // Chế độ thêm mới
+        isEdit={false}
       />
     </div>
   );

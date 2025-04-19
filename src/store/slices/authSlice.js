@@ -12,6 +12,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login(state, action) {
+      console.log("Login action payload:", action.payload);
       state.isLoggedIn = true;
       state.userInfo = action.payload;
       state.authModalOpen = false; // Đóng modal khi đăng nhập thành công

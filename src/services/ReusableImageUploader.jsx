@@ -28,7 +28,11 @@ function ReusableImageUploader({ onUpload, multiple = false, initFiles = [] }) {
           }
         );
         const data = await response.json();
-        uploadedFiles.push({ url: data.secure_url, id: null }); // Ảnh mới không có id
+        uploadedFiles.push({
+          url: data.secure_url,
+          id: null,
+          type: "ROOM",
+        });
       } catch (error) {
         console.error("Error uploading file:", error);
       }

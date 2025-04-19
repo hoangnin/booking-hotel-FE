@@ -153,11 +153,46 @@ export const refreshToken = async () => {
   }
 };
 
+export const forgotPassword = async (email) => {
+  try {
+    const res = await api.post("/auth/forgotPassword", {
+      email: email,
+    });
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      throw error;
+    } else {
+      throw new Error("Failed to send password reset email");
+    }
+  }
+};
+
+export const forgotPasswordConfirm = async (
+  token,
+  { newPassword, confirmPassword }
+) => {
+  try {
+    const res = await api.post(`/auth/forgotPassword/${token}`, {
+      newPassword: newPassword,
+      confirmPassword: confirmPassword,
+    });
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      throw error;
+    } else {
+      throw new Error("Failed to confirm password reset");
+    }
+  }
+};
+
 // ====================== USER ======================
 
 export const userInfo = async () => {
   try {
     const res = await api.get("/user/info");
+    console.log("User Info API Response:", res.data);
     return res.data;
   } catch (error) {
     if (error.response) {
@@ -301,6 +336,61 @@ export const addHotelByOwner = async (requestBody) => {
 };
 
 // ====================== ADMIN ======================
+export const getAllUsers = async () => {
+  try {
+    const res = await api.get("/admin/users");
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      throw error;
+    } else {
+      throw new Error("Failed to fetch users");
+    }
+  }
+};
+
+export const unblockUser = async (userId) => {
+  try {
+    const res = await api.get(`/admin/unBlock/${userId}`);
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      throw error;
+    } else {
+      throw new Error("Failed to unblock user");
+    }
+  }
+};
+
+export const activateHotelOwner = async (userId) => {
+  try {
+    const res = await api.get(`/admin/active/${userId}`);
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      throw error;
+    } else {
+      throw new Error("Failed to activate hotel owner");
+    }
+  }
+};
+
+export const blockUser = async (userId, banReason) => {
+  try {
+    const res = await api.post("/admin/block", {
+      userId,
+      banReason,
+    });
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      throw error;
+    } else {
+      throw new Error("Failed to block user");
+    }
+  }
+};
+
 export const dashboardOverview = async () => {
   try {
     const res = await api.get("/admin/dashboard/overview");
@@ -355,6 +445,22 @@ export const dashboardTopHotel = async ({ numTop = 10 }) => {
       `/admin/dashboard/top-hotels-revenue?numTop=${numTop}`
     );
     return res.data;
+  } catch (error) {
+    if (error.response) {
+      throw error;
+    } else {
+      throw new Error("Failed to fetch top Hotel");
+    }
+  }
+};
+
+export const searchUser = async (keySearch) => {
+  try {
+    const response = await api.get(
+      `/admin/users/search?keySearch=${encodeURIComponent(keySearch)}`
+    );
+
+    return response.data;
   } catch (error) {
     if (error.response) {
       throw error;

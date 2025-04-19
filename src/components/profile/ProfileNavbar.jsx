@@ -1,16 +1,12 @@
 import {
-  IconAdjustments,
   IconCalendarStats,
-  IconFileAnalytics,
   IconGauge,
-  IconLock,
   IconNotes,
-  IconPresentationAnalytics,
+  IconUsers,
 } from "@tabler/icons-react";
-import { Code, Group, ScrollArea } from "@mantine/core";
+import { ScrollArea } from "@mantine/core";
 import { LinksGroup } from "./NavbarLinksGroup";
-import { UserButton } from "./UserButton";
-
+import { useSelector } from "react-redux";
 // import { Logo } from "./Logo";
 import classes from "./ProfileNavbar.module.css";
 
@@ -55,12 +51,32 @@ const mockdata = [
     link: "/profile/orderHistory",
   },
   { label: "Dashboard", icon: IconGauge, link: "/profile/dashboard" },
+  {
+    label: "User Management",
+    icon: IconUsers,
+    link: "/profile/userManagement",
+  },
 ];
 
 export function NavbarNested() {
-  const links = mockdata.map((item) => (
-    <LinksGroup {...item} key={item.label} />
-  ));
+  const userInfo = useSelector((state) => state.auth.userInfo);
+  const roles = userInfo?.roles || [];
+
+  console.log("User Info:", userInfo);
+  console.log("Roles:", roles);
+
+  const links = mockdata.map((item) => {
+    // Hide Dashboard and User Management for non-admin users
+    if (
+      (item.label === "Dashboard" || item.label === "User Management") &&
+      !roles.some((role) => role.name === "ROLE_ADMIN")
+    ) {
+      console.log(`${item.label} hidden - User is not admin`);
+      return null;
+    }
+    // Show all other menu items
+    return <LinksGroup {...item} key={item.label} />;
+  });
 
   return (
     <nav className={classes.navbar}>

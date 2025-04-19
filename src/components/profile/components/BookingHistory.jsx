@@ -215,9 +215,6 @@ export default function BookingHistory() {
                     >
                       View
                     </Button>
-                    <Button variant="outline" color="green" size="xs">
-                      Re-Book
-                    </Button>
                   </Group>
                 </Table.Td>
               </Table.Tr>

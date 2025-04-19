@@ -17,15 +17,19 @@ import { queryClient, userInfo } from "./util/http";
 import SuccessPage from "../pages/SuccessPage.jsx";
 import CancelPage from "../pages/CancelPage.jsx";
 import CustomBreadcrumbs from "./components/common/Breadcrumbs.jsx";
-import ProfilePage from "./components/profile/ProfilePage"; // Import the ProfilePage component
+import ProfilePage from "./components/profile/ProfilePage";
 import Infomation from "./components/profile/components/infomation/Infomation.jsx";
 import OrderHistory from "./components/profile/components/BookingHistory.jsx";
 import Dashboard from "./components/profile/components/dashboard/Dashboard.jsx";
+import { UserManagement } from "./components/profile/components/userManagement/UserManagement";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { login, logout } from "./store//slices/authSlice.js";
 import Loading from "./components/common/Loading.jsx";
 import HotelSearchPage from "./components/hotelSearch/HotelSearchPage.jsx";
+import { OAuthCallback } from "./components/authenticationForm/OAuthCallback";
+import { ForgotPasswordConfirm } from "./components/authenticationForm/ForgotPasswordConfirm";
+import { OAuthFailed } from "./components/authenticationForm/OAuthFailed";
 
 function RootLayout() {
   return (
@@ -47,6 +51,9 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { path: "/", element: <Home /> },
+      { path: "/oauth2/success", element: <OAuthCallback /> },
+      { path: "/oauth2/failed", element: <OAuthFailed /> },
+      { path: "/forgotPassword", element: <ForgotPasswordConfirm /> },
       {
         path: "hotels",
         element: <HotelSearchPage />,
@@ -61,9 +68,10 @@ const router = createBrowserRouter([
         path: "profile",
         element: <ProfilePage />,
         children: [
-          { path: "", element: <Infomation /> }, // Default when visiting /profile
+          { path: "", element: <Infomation /> },
           { path: "orderHistory", element: <OrderHistory /> },
           { path: "dashboard", element: <Dashboard /> },
+          { path: "userManagement", element: <UserManagement /> },
         ],
       },
       { path: "*", element: <NotFoundPage /> },
