@@ -82,17 +82,24 @@ export function UsersRolesTable({ tab }) {
   const [banModalOpened, setBanModalOpened] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [banReason, setBanReason] = useState("");
-  const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch] = useDebouncedValue(searchQuery, 500);
   const queryClient = useQueryClient();
 
+  // Quản lý page riêng cho mỗi tab
+  const [pages, setPages] = useState({
+    users: 1,
+    hotelOwners: 1,
+  });
+
+  // Kích thước mặc định cho mỗi trang
+  const PAGE_SIZE = 10;
+
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["users", page, debouncedSearch, tab],
+    queryKey: ["users", pages[tab], debouncedSearch],
     queryFn: async () => {
       if (debouncedSearch) {
         const searchData = await searchUser(debouncedSearch);
-        // Convert array to pagination format
         return {
           content: searchData,
           totalElements: searchData.length,
@@ -101,14 +108,52 @@ export function UsersRolesTable({ tab }) {
           number: 0,
         };
       }
-      return getAllUsers(page - 1);
+      return getAllUsers(pages[tab] - 1, PAGE_SIZE);
     },
   });
 
-  // Reset page when search query changes
+  // Reset pages khi search query thay đổi
   useEffect(() => {
-    setPage(1);
+    setPages({
+      users: 1,
+      hotelOwners: 1,
+    });
   }, [debouncedSearch]);
+
+  // Tách users theo role và tính toán phân trang cho mỗi tab
+  const processUsers = (users) => {
+    if (!users) return { filteredUsers: [], totalPages: 0 };
+
+    const allUsers = users.content || [];
+
+    // Lọc users theo tab hiện tại
+    const filteredUsers = allUsers.filter((user) => {
+      if (tab === "users") {
+        return (
+          user.roles.some((role) => role.name === "ROLE_USER") &&
+          !user.roles.some((role) => role.name === "ROLE_HOTEL")
+        );
+      } else {
+        return user.roles.some((role) => role.name === "ROLE_HOTEL");
+      }
+    });
+
+    // Lấy totalPages từ response API thay vì tự tính
+    return {
+      filteredUsers,
+      totalPages: users.totalPages || 0,
+    };
+  };
+
+  const { filteredUsers, totalPages } = processUsers(data);
+
+  // Hàm xử lý thay đổi trang
+  const handlePageChange = (newPage) => {
+    setPages((prev) => ({
+      ...prev,
+      [tab]: newPage,
+    }));
+  };
 
   const unblockMutation = useMutation({
     mutationFn: unblockUser,
@@ -167,19 +212,6 @@ export function UsersRolesTable({ tab }) {
       </>
     );
   }
-
-  // Filter users based on tab after getting data
-  const filteredUsers = data.content.filter((user) => {
-    if (tab === "users") {
-      return (
-        user.roles.some((role) => role.name === "ROLE_USER") &&
-        !user.roles.some((role) => role.name === "ROLE_HOTEL")
-      );
-    } else if (tab === "hotelOwners") {
-      return user.roles.some((role) => role.name === "ROLE_HOTEL");
-    }
-    return false;
-  });
 
   const rows = filteredUsers.map((user) => (
     <Table.Tr key={user.id}>
@@ -329,9 +361,9 @@ export function UsersRolesTable({ tab }) {
           {!debouncedSearch && (
             <Center mt="xl">
               <Pagination
-                value={page}
-                onChange={setPage}
-                total={data.totalPages}
+                value={pages[tab]}
+                onChange={handlePageChange}
+                total={totalPages}
                 siblings={1}
                 boundaries={1}
                 color="blue"

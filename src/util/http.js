@@ -348,9 +348,9 @@ export const addHotelByOwner = async (requestBody) => {
 };
 
 // ====================== ADMIN ======================
-export const getAllUsers = async () => {
+export const getAllUsers = async (page = 0, size = 10) => {
   try {
-    const res = await api.get("/admin/users");
+    const res = await api.get(`/admin/users?page=${page}&size=${size}`);
     return res.data;
   } catch (error) {
     if (error.response) {
