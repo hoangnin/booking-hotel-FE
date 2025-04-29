@@ -40,6 +40,17 @@ export function HotelBooking({
     return formattedDate.toISOString();
   };
 
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(price);
+  };
+
+  const formatRating = (rating) => {
+    return Number(rating).toFixed(1);
+  };
+
   const handleReserve = async () => {
     if (!isLoggedIn) {
       dispatch(openAuthModal());
@@ -102,11 +113,11 @@ export function HotelBooking({
       />{" "}
       {/* Add LoadingOverlay */}
       <Text fw={700} fz="xl">
-        ${pricePerNight}/night
+        ${formatPrice(pricePerNight)}/night
       </Text>
       <Group spacing="xs" mt="xs">
         <Badge color="yellow" size="lg">
-          {rating}
+          {formatRating(rating)}
         </Badge>
         <Text fz="sm" c="dimmed">
           ({reviewCount} reviews)
@@ -133,18 +144,18 @@ export function HotelBooking({
       <Divider my="sm" />
       <Group position="apart" mt="md">
         <Text fz="sm">
-          ${pricePerNight} x {nights} night{nights > 1 ? "s" : ""}
+          ${formatPrice(pricePerNight)} x {nights} night{nights > 1 ? "s" : ""}
         </Text>
-        <Text fz="sm">${pricePerNight * nights}</Text>
+        <Text fz="sm">${formatPrice(pricePerNight * nights)}</Text>
       </Group>
       <Group position="apart" mt="xs">
         <Text fz="sm">Service charge</Text>
-        <Text fz="sm">${serviceCharge}</Text>
+        <Text fz="sm">${formatPrice(serviceCharge)}</Text>
       </Group>
       <Divider my="sm" />
       <Group position="apart" mt="xs">
         <Text fw={700}>Total</Text>
-        <Text fw={700}>${total}</Text>
+        <Text fw={700}>${formatPrice(total)}</Text>
       </Group>
       <Textarea
         label="Special Requests"

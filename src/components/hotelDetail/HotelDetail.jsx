@@ -14,6 +14,9 @@ import {
   Rating,
   Modal,
   Alert,
+  Textarea,
+  TextInput,
+  Image,
 } from "@mantine/core"; // Import Rating, Modal, and Alert
 import { DatePicker } from "@mantine/dates";
 import { useState, useRef } from "react"; // Import useState and useRef
@@ -26,17 +29,29 @@ import {
   IconAt,
   IconPhoneCall,
   IconInfoCircle,
+  IconArrowDown,
+  IconArrowUp,
+  IconX,
 } from "@tabler/icons-react"; // Import icons
 import styles from "./HotelDetail.module.css";
 import { HotelBooking } from "./HotelBooking";
 import { Faq } from "../faq/Faq";
 import { LocationMap } from "../LocationMap"; // Import LocationMap component
 import { useQuery } from "@tanstack/react-query";
-import { fetchHotel, fetchOwner, fetchReviews } from "../../util/http"; // Import fetchOwner and fetchReviews
+import {
+  fetchHotel,
+  fetchOwner,
+  fetchReviews,
+  createReview,
+} from "../../util/http"; // Import fetchOwner and fetchReviews
 import { useParams } from "react-router-dom"; // Import useParams
 import { MasonryLayout } from "./MasonryLayout"; // Import MasonryLayout component
 import { amenityIcons } from "../../constants/amenityIcons"; // Import amenityIcons
 import { differenceInDays } from "date-fns"; // Import differenceInDays from date-fns
+import { useQueryClient } from "@tanstack/react-query";
+import ReusableImageUploader from "../../services/ReusableImageUploader";
+import { notifications } from "@mantine/notifications";
+import classes from "../authenticationForm/notification.module.css";
 
 export function HotelDetail() {
   const { id } = useParams(); // Get id from URL parameters
@@ -46,6 +61,7 @@ export function HotelDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(null); // Track current image index
   const [alertMessage, setAlertMessage] = useState(null); // State for alert message
   const datePickerRef = useRef(null); // Ref for DatePicker
+  const queryClient = useQueryClient();
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["hotel", id], // Include id in queryKey
@@ -120,6 +136,10 @@ export function HotelDetail() {
     setDateRange(range);
   };
 
+  const formatRating = (rating) => {
+    return Number(rating).toFixed(1);
+  };
+
   const PropertyCard = () => (
     <div className="border border-gray-300 rounded-lg p-6 shadow-md w-full">
       <Badge color="blue" variant="light" className="mb-2">
@@ -128,7 +148,7 @@ export function HotelDetail() {
       <h2 className="text-xl font-semibold mb-1">{description}</h2>
       <Group spacing="xs" className="mb-4">
         <Text size="sm" color="dimmed">
-          {rating} ({bookedDateRange.length} reviews)
+          {formatRating(rating)} ({reviewsData?.length || 0} reviews)
         </Text>
         <span className="text-gray-400">•</span>
         <Text size="sm" color="dimmed">
@@ -409,8 +429,85 @@ export function HotelDetail() {
     if (isReviewsError)
       return <div>Error loading reviews: {reviewsError.message}</div>;
 
-    const [visibleReviews, setVisibleReviews] = useState(6); // State to track the number of visible reviews
+    const [visibleReviews, setVisibleReviews] = useState(6);
+    const [reviewFormData, setReviewFormData] = useState({
+      rating: 0,
+      content: "",
+      imageUrl: "",
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
+    const handleImageUpload = (uploadedFiles) => {
+      if (uploadedFiles && uploadedFiles.length > 0) {
+        setReviewFormData((prev) => ({
+          ...prev,
+          imageUrl: uploadedFiles[0].url,
+        }));
+      }
+    };
+    const handleReviewSubmit = async (e) => {
+      e.preventDefault();
+      setIsSubmitting(true);
+
+      try {
+        const response = await createReview({
+          rating: reviewFormData.rating,
+          content: reviewFormData.content,
+          hotelId: id,
+          imageUrl: reviewFormData.imageUrl,
+        });
+
+        const message =
+          response?.message ||
+          (typeof response === "string" ? response : JSON.stringify(response));
+
+        if (message.toLowerCase().includes("must booking")) {
+          notifications.show({
+            title: "Error",
+            message: message,
+            color: "red",
+            autoClose: 5000,
+            classNames: classes,
+          });
+        } else {
+          notifications.show({
+            title: "Success",
+            message: "Review submitted successfully",
+            color: "green",
+            autoClose: 3000,
+            classNames: classes,
+          });
+
+          // Reset form
+          setReviewFormData({
+            rating: 0,
+            content: "",
+            imageUrl: "",
+          });
+
+          // Refetch reviews data
+          await queryClient.refetchQueries({ queryKey: ["reviews", id] });
+        }
+      } catch (error) {
+        const errorMessage =
+          error?.response?.data?.message ||
+          (typeof error?.response?.data === "string"
+            ? error.response.data
+            : JSON.stringify(error?.response?.data)) ||
+          error?.message ||
+          "Failed to submit review";
+
+        notifications.show({
+          title: "Error",
+          message: errorMessage,
+          color: "red",
+          autoClose: 5000,
+          classNames: classes,
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
+    };
     const handleLoadMore = () => {
       setVisibleReviews((prev) => prev + 6); // Show 6 more reviews on each click
     };
@@ -429,66 +526,249 @@ export function HotelDetail() {
         <Title order={3} className="mb-4">
           Reviews
         </Title>
-        <div className="flex items-center mb-4">
-          <Rating
-            value={
-              reviewsData.reduce((sum, review) => sum + review.rating, 0) /
-              reviewsData.length
-            }
-            readOnly
-            size="lg"
-          />
-          <Text size="sm" className="ml-2">
-            {(
-              reviewsData.reduce((sum, review) => sum + review.rating, 0) /
-              reviewsData.length
-            ).toFixed(1)}{" "}
-            ({reviewsData.length} reviews)
-          </Text>
-        </div>
-        <SimpleGrid cols={2} spacing="lg">
-          {reviewsData.slice(0, visibleReviews).map((review) => (
-            <div key={review.id} className="mb-4">
-              <Group>
-                <Avatar
-                  src={review.userReview.avatar}
-                  alt={review.userReview.username}
-                  radius="xl"
+
+        {/* Review Form */}
+        <Card withBorder shadow="sm" radius="md" className="mb-6 p-4">
+          <form onSubmit={handleReviewSubmit}>
+            <Text size="sm" weight={500} className="mb-2">
+              Write a Review
+            </Text>
+            <Rating
+              value={reviewFormData.rating}
+              onChange={(value) =>
+                setReviewFormData((prev) => ({ ...prev, rating: value }))
+              }
+              size="lg"
+              className="mb-3"
+            />
+            <Textarea
+              placeholder="Share your experience..."
+              value={reviewFormData.content}
+              onChange={(e) =>
+                setReviewFormData((prev) => ({
+                  ...prev,
+                  content: e.target.value,
+                }))
+              }
+              minRows={3}
+              className="mb-3"
+              required
+            />
+
+            {/* Image Upload Section */}
+            <div className="mb-3">
+              <Text size="sm" weight={500} className="mb-2">
+                Add Photos
+              </Text>
+              <ReusableImageUploader
+                onUpload={handleImageUpload}
+                multiple={false}
+                initFiles={
+                  reviewFormData.imageUrl
+                    ? [{ url: reviewFormData.imageUrl }]
+                    : []
+                }
+              />
+            </div>
+
+            <Button
+              type="submit"
+              loading={isSubmitting}
+              disabled={!reviewFormData.rating || !reviewFormData.content}
+              className="bg-blue-500 hover:bg-blue-600"
+            >
+              Submit Review
+            </Button>
+          </form>
+        </Card>
+
+        {/* Review Stats Section - Add this before the reviews grid */}
+        <Card withBorder shadow="sm" radius="md" mb="xl" className="bg-gray-50">
+          <Group position="apart" align="flex-start">
+            <div>
+              <Text size="xl" weight={700} mb="xs">
+                {reviewsData.length} Reviews
+              </Text>
+              <Group spacing="xs" align="center">
+                <Rating
+                  value={
+                    reviewsData.reduce(
+                      (sum, review) => sum + review.rating,
+                      0
+                    ) / reviewsData.length
+                  }
+                  readOnly
+                  size="lg"
                 />
-                <div>
-                  <Text size="sm">{review.userReview.username}</Text>
-                  <Rating value={review.rating} readOnly size="sm" mt={4} />
-                </div>
+                <Text size="lg" weight={500}>
+                  {formatRating(
+                    reviewsData.reduce(
+                      (sum, review) => sum + review.rating,
+                      0
+                    ) / reviewsData.length
+                  )}
+                </Text>
               </Group>
-              <Text pl={54} pt="sm" size="sm">
+            </div>
+
+            {/* Rating Distribution */}
+            <div style={{ width: "60%" }}>
+              {[5, 4, 3, 2, 1].map((star) => {
+                const count = reviewsData.filter(
+                  (review) => review.rating === star
+                ).length;
+                const percentage = (count / reviewsData.length) * 100;
+
+                return (
+                  <Group key={star} position="apart" spacing="xs" mb="xs">
+                    <Text size="sm" color="dimmed" style={{ width: 50 }}>
+                      {star} stars
+                    </Text>
+                    <div style={{ flex: 1 }}>
+                      <div
+                        style={{
+                          height: "8px",
+                          width: "100%",
+                          backgroundColor: "#e9ecef",
+                          borderRadius: "4px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            height: "100%",
+                            width: `${percentage}%`,
+                            backgroundColor: "#228be6",
+                            borderRadius: "4px",
+                            transition: "width 0.3s ease",
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <Text size="sm" color="dimmed" style={{ width: 40 }}>
+                      {count}
+                    </Text>
+                  </Group>
+                );
+              })}
+            </div>
+          </Group>
+        </Card>
+
+        <SimpleGrid cols={2} spacing="xl">
+          {reviewsData.slice(0, visibleReviews).map((review) => (
+            <Card
+              key={review.id}
+              shadow="sm"
+              p="lg"
+              radius="md"
+              withBorder
+              className="transition-shadow hover:shadow-md"
+            >
+              {/* Header: User Info and Rating */}
+              <Group position="apart" mb="md">
+                <Group>
+                  <Avatar
+                    src={review.userReview.avatar}
+                    alt={review.userReview.username}
+                    radius="xl"
+                    size="md"
+                  />
+                  <div>
+                    <Text size="sm" weight={500}>
+                      {review.userReview.username}
+                    </Text>
+                    <Rating value={review.rating} readOnly size="sm" />
+                  </div>
+                </Group>
+                {/* Có thể thêm ngày review ở đây nếu có */}
+                {/* <Text size="xs" color="dimmed">2 days ago</Text> */}
+              </Group>
+
+              {/* Review Content */}
+              <Text
+                size="sm"
+                color="dimmed"
+                lineClamp={3}
+                mb={review.url ? "md" : 0}
+              >
                 {review.content}
               </Text>
-            </div>
+
+              {/* Review Image */}
+              {review.url && (
+                <Card.Section mt="md">
+                  <Image
+                    src={review.url}
+                    alt="Review attachment"
+                    height={180}
+                    onClick={() => setSelectedImage({ url: review.url })}
+                    style={{
+                      cursor: "pointer",
+                      objectFit: "cover",
+                    }}
+                  />
+                </Card.Section>
+              )}
+            </Card>
           ))}
         </SimpleGrid>
-        <div className="mt-4">
-          {visibleReviews < reviewsData.length && (
-            <Button
-              variant="light"
-              color="blue"
-              size="xs"
-              onClick={handleLoadMore}
+
+        {/* Pagination/Load More Section */}
+        {reviewsData.length > 6 && (
+          <Group position="center" mt="xl">
+            {visibleReviews < reviewsData.length ? (
+              <Button
+                variant="light"
+                color="blue"
+                onClick={handleLoadMore}
+                leftIcon={<IconArrowDown size={16} />}
+              >
+                Load More Reviews
+              </Button>
+            ) : (
+              <Button
+                variant="subtle"
+                color="gray"
+                onClick={handleShowLess}
+                leftIcon={<IconArrowUp size={16} />}
+              >
+                Show Less
+              </Button>
+            )}
+          </Group>
+        )}
+
+        {/* Image Modal */}
+        <Modal
+          opened={!!selectedImage}
+          onClose={() => setSelectedImage(null)}
+          size="xl"
+          centered
+          withCloseButton={false}
+          padding={0}
+        >
+          <div className="relative">
+            <ActionIcon
+              className="absolute top-4 right-4 z-10"
+              variant="filled"
+              color="dark"
+              onClick={() => setSelectedImage(null)}
+              radius="xl"
             >
-              Load More
-            </Button>
-          )}
-          {visibleReviews > 6 && (
-            <Button
-              variant="light"
-              color="red"
-              size="xs"
-              className="ml-2"
-              onClick={handleShowLess}
-            >
-              Show Less
-            </Button>
-          )}
-        </div>
+              <IconX size={18} />
+            </ActionIcon>
+            <img
+              src={selectedImage?.url}
+              alt="Review"
+              style={{
+                width: "100%",
+                height: "auto",
+                maxHeight: "90vh",
+                objectFit: "contain",
+              }}
+            />
+          </div>
+        </Modal>
       </Card>
     );
   };
@@ -686,11 +966,10 @@ export function HotelDetail() {
             <HotelBooking
               pricePerNight={price}
               rating={rating}
-              reviewsCount={bookedDateRange.length}
-              reviewCount={reviewsData?.length || 0} // Pass review count
-              dateRange={dateRange} // Pass dateRange to HotelBooking
-              nights={nights} // Pass calculated nights to HotelBooking
-              onDateClick={handleDateHighlight} // Pass highlight handler to HotelBooking
+              reviewCount={reviewsData?.length || 0}
+              dateRange={dateRange}
+              nights={nights}
+              onDateClick={handleDateHighlight}
               hotelId={id}
             />
           </div>

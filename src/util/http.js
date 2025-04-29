@@ -293,6 +293,18 @@ export const getUserBooking = async ({ page = 1, size = 10 }) => {
     }
   }
 };
+export const createReview = async (requestBody) => {
+  try {
+    const res = await api.post("/user/review", requestBody);
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      throw error;
+    } else {
+      throw new Error("Failed to create review");
+    }
+  }
+};
 
 // ====================== HOTEL OWNER ======================
 export const getHotelByOwner = async () => {
