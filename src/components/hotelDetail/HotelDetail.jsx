@@ -17,6 +17,10 @@ import {
   Textarea,
   TextInput,
   Image,
+  Overlay,
+  UnstyledButton,
+  Switch,
+  Tooltip,
 } from "@mantine/core"; // Import Rating, Modal, and Alert
 import { DatePicker } from "@mantine/dates";
 import { useState, useRef } from "react"; // Import useState and useRef
@@ -32,7 +36,8 @@ import {
   IconArrowDown,
   IconArrowUp,
   IconX,
-} from "@tabler/icons-react"; // Import icons
+  IconRotate360,
+} from "@tabler/icons-react"; // Fixed icon import
 import styles from "./HotelDetail.module.css";
 import { HotelBooking } from "./HotelBooking";
 import { Faq } from "../faq/Faq";
@@ -53,15 +58,20 @@ import ReusableImageUploader from "../../services/ReusableImageUploader";
 import { notifications } from "@mantine/notifications";
 import classes from "../authenticationForm/notification.module.css";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import React from "react";
+// Import our custom PanoramaViewer component instead of react-pannellum directly
+import { PanoramaViewer } from "./PanoramaViewer";
 
 export function HotelDetail() {
   const { t } = useTranslation(); // Initialize useTranslation hook
   const { id } = useParams(); // Get id from URL parameters
   const [dateRange, setDateRange] = useState([null, null]); // Updated state for date range
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for gallery modal
   const [selectedImage, setSelectedImage] = useState(null); // State for selected image
   const [currentImageIndex, setCurrentImageIndex] = useState(null); // Track current image index
+  const [expandedView, setExpandedView] = useState(false); // New state for expanded view
   const [alertMessage, setAlertMessage] = useState(null); // State for alert message
+  const [isPanoramaView, setIsPanoramaView] = useState(false); // State for panorama view
   const datePickerRef = useRef(null); // Ref for DatePicker
   const queryClient = useQueryClient();
 
@@ -394,7 +404,7 @@ export function HotelDetail() {
         <Title order={2} className="mb-4">
           {t("hotelDetail.hostInformation")}
         </Title>
-        <Group position="center" noWrap>
+        <Group justify="center" wrap="nowrap">
           <Avatar
             src={avatarUrl || "https://via.placeholder.com/120"}
             size={120}
@@ -404,13 +414,13 @@ export function HotelDetail() {
             <Text fz="xl" fw={600} className="mt-2">
               {name}
             </Text>
-            <Group noWrap spacing={10} mt={3} position="center">
+            <Group wrap="nowrap" spacing={10} mt={3} justify="center">
               <IconAt stroke={1.5} size={18} />
               <Text fz="sm" c="dimmed">
                 {email}
               </Text>
             </Group>
-            <Group noWrap spacing={10} mt={5} position="center">
+            <Group wrap="nowrap" spacing={10} mt={5} justify="center">
               <IconPhoneCall stroke={1.5} size={18} />
               <Text fz="sm" c="dimmed">
                 {phone}
@@ -422,29 +432,6 @@ export function HotelDetail() {
     );
   };
 
-  const CommentSimple = ({ name, time, rating, comment }) => (
-    <div className="mb-4">
-      <Group>
-        <Avatar
-          src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-1.png"
-          alt={name}
-          radius="xl"
-        />
-        <div>
-          <Text size="sm">{name}</Text>
-          <Text size="xs" c="dimmed">
-            {time}
-          </Text>
-          <Rating value={rating} readOnly size="sm" mt={4} />{" "}
-          {/* Add star rating */}
-        </div>
-      </Group>
-      <Text pl={54} pt="sm" size="sm">
-        {comment}
-      </Text>
-    </div>
-  );
-
   const Reviews = () => {
     const [visibleReviews, setVisibleReviews] = useState(6);
     const [reviewFormData, setReviewFormData] = useState({
@@ -453,6 +440,7 @@ export function HotelDetail() {
       imageUrl: "",
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [reviewImageToView, setReviewImageToView] = useState(null); // Separate state for review images
 
     if (isReviewsPending) return <div>{t("hotelDetail.loadingReviews")}</div>;
     if (isReviewsError)
@@ -611,7 +599,7 @@ export function HotelDetail() {
 
         {/* Review Stats Section - Add this before the reviews grid */}
         <Card withBorder shadow="sm" radius="md" mb="xl" className="bg-gray-50">
-          <Group position="apart" align="flex-start">
+          <Group justify="apart" align="flex-start">
             <div>
               <Text size="xl" weight={700} mb="xs">
                 {t("hotelDetail.reviewsCount", { count: reviewsData.length })}
@@ -647,7 +635,7 @@ export function HotelDetail() {
                 const percentage = (count / reviewsData.length) * 100;
 
                 return (
-                  <Group key={star} position="apart" spacing="xs" mb="xs">
+                  <Group key={star} justify="apart" spacing="xs" mb="xs">
                     <Text size="sm" color="dimmed" style={{ width: 50 }}>
                       {t("hotelDetail.starsLabel", { count: star })}
                     </Text>
@@ -692,7 +680,7 @@ export function HotelDetail() {
               className="transition-shadow hover:shadow-md"
             >
               {/* Header: User Info and Rating */}
-              <Group position="apart" mb="md">
+              <Group justify="apart" mb="md">
                 <Group>
                   <Avatar
                     src={review.userReview.avatar}
@@ -728,7 +716,7 @@ export function HotelDetail() {
                     src={review.url}
                     alt={t("hotelDetail.reviewAttachment")}
                     height={180}
-                    onClick={() => setSelectedImage({ url: review.url })}
+                    onClick={() => setReviewImageToView(review.url)}
                     style={{
                       cursor: "pointer",
                       objectFit: "cover",
@@ -742,13 +730,13 @@ export function HotelDetail() {
 
         {/* Pagination/Load More Section */}
         {reviewsData.length > 6 && (
-          <Group position="center" mt="xl">
+          <Group justify="center" mt="xl">
             {visibleReviews < reviewsData.length ? (
               <Button
                 variant="light"
                 color="blue"
                 onClick={handleLoadMore}
-                leftIcon={<IconArrowDown size={16} />}
+                leftSection={<IconArrowDown size={16} />}
               >
                 {t("hotelDetail.loadMoreReviews")}
               </Button>
@@ -757,7 +745,7 @@ export function HotelDetail() {
                 variant="subtle"
                 color="gray"
                 onClick={handleShowLess}
-                leftIcon={<IconArrowUp size={16} />}
+                leftSection={<IconArrowUp size={16} />}
               >
                 {t("hotelDetail.showLess")}
               </Button>
@@ -765,63 +753,122 @@ export function HotelDetail() {
           </Group>
         )}
 
-        {/* Image Modal */}
+        {/* Review Image Modal - Separate from the main image viewer */}
         <Modal
-          opened={!!selectedImage}
-          onClose={() => setSelectedImage(null)}
-          size="xl"
+          opened={!!reviewImageToView}
+          onClose={() => setReviewImageToView(null)}
+          size="lg"
           centered
-          withCloseButton={false}
+          withCloseButton={true}
           padding={0}
+          styles={{
+            close: {
+              color: "white",
+              background: "rgba(0, 0, 0, 0.5)",
+              "&:hover": { background: "rgba(0, 0, 0, 0.7)" },
+            },
+            header: {
+              position: "absolute",
+              top: 0,
+              right: 0,
+              zIndex: 10,
+              background: "transparent",
+              padding: "10px",
+            },
+            content: { background: "black" },
+          }}
         >
-          <div className="relative">
-            <ActionIcon
-              className="absolute top-4 right-4 z-10"
-              variant="filled"
-              color="dark"
-              onClick={() => setSelectedImage(null)}
-              radius="xl"
-            >
-              <IconX size={18} />
-            </ActionIcon>
-            <img
-              src={selectedImage?.url}
-              alt={t("hotelDetail.reviewAttachment")}
-              style={{
-                width: "100%",
-                height: "auto",
-                maxHeight: "90vh",
-                objectFit: "contain",
-              }}
-            />
-          </div>
+          <img
+            src={reviewImageToView}
+            alt={t("hotelDetail.reviewAttachment")}
+            style={{
+              width: "100%",
+              height: "auto",
+              maxHeight: "90vh",
+              objectFit: "contain",
+            }}
+          />
         </Modal>
       </Card>
     );
   };
 
-  const handleImageClick = (image, index) => {
-    setSelectedImage(image);
-    setCurrentImageIndex(index);
+  // Open the gallery modal
+  const openGallery = () => {
     setIsModalOpen(true);
+    setExpandedView(false);
   };
 
-  const handleNextImage = (e) => {
-    e.stopPropagation(); // Prevent modal from closing
+  // Handle click on image in main HotelDetail view
+  const handleMainImageClick = () => {
+    openGallery();
+  };
+
+  // Function to determine if an image can be viewed in 360° mode
+  // Modified to always return true so the 360° button appears for all images
+  const isPanoramaImage = () => {
+    // Always return true to show the 360° button for all images
+    return true;
+
+    // Original detection logic (commented out):
+    // return (
+    //   image &&
+    //   image.url &&
+    //   (image.url.includes("360") ||
+    //     image.url.includes("panorama") ||
+    //     image.is360 === true)
+    // );
+  };
+
+  // Handler for toggling panorama view
+  const togglePanoramaView = () => {
+    if (isPanoramaImage()) {
+      setIsPanoramaView(!isPanoramaView);
+    } else {
+      setIsPanoramaView(false);
+      // Optionally show a notification that this image doesn't support 360° view
+    }
+  };
+
+  // When changing images, check if the new image supports 360° view
+  const handleGalleryImageClick = (image, index) => {
+    setSelectedImage(image);
+    setCurrentImageIndex(index);
+    setExpandedView(true);
+    // Reset panorama view when changing images
+    setIsPanoramaView(false);
+  };
+
+  // Update these functions to reset panorama view when navigating
+  const handleNextImage = () => {
     if (images && images.length > 0) {
       const nextIndex = (currentImageIndex + 1) % images.length;
       setSelectedImage(images[nextIndex]);
       setCurrentImageIndex(nextIndex);
+      setIsPanoramaView(false); // Reset panorama view
     }
   };
 
-  const handlePreviousImage = (e) => {
-    e.stopPropagation(); // Prevent modal from closing
+  const handlePreviousImage = () => {
     if (images && images.length > 0) {
       const prevIndex = (currentImageIndex - 1 + images.length) % images.length;
       setSelectedImage(images[prevIndex]);
       setCurrentImageIndex(prevIndex);
+      setIsPanoramaView(false); // Reset panorama view
     }
+  };
+
+  const closeExpandedView = () => {
+    setExpandedView(false);
+    setIsPanoramaView(false); // Reset panorama view
+  };
+
+  const closeGallery = () => {
+    setIsModalOpen(false);
+    setExpandedView(false);
+    setSelectedImage(null);
+    setCurrentImageIndex(null);
+    setIsPanoramaView(false); // Reset panorama view
   };
 
   return (
@@ -831,7 +878,8 @@ export function HotelDetail() {
         <SimpleGrid cols={2} spacing="md">
           <div
             className={styles["aspect-ratio"]}
-            onClick={() => setIsModalOpen(true)}
+            onClick={handleMainImageClick}
+            style={{ cursor: "pointer" }}
           >
             <img src={images[0]?.url} alt="Hotel" />
           </div>
@@ -841,7 +889,8 @@ export function HotelDetail() {
               <Grid.Col
                 key={index}
                 span={index === 0 ? 12 : 6}
-                onClick={() => setIsModalOpen(true)}
+                onClick={handleMainImageClick}
+                style={{ cursor: "pointer" }}
               >
                 <div className={styles["aspect-ratio"]}>
                   <img src={image.url} alt={`Small ${index + 1}`} />
@@ -854,111 +903,228 @@ export function HotelDetail() {
         {/* View All Icon */}
         <div
           className={styles["view-all-icon"]}
-          onClick={() => setIsModalOpen(true)} // Open modal on click
+          onClick={handleMainImageClick} // Open gallery on click
+          style={{ cursor: "pointer" }}
         >
           <IconEye size={20} />
         </div>
       </div>
 
-      {/* Modal for Pinterest/Masonry layout */}
+      {/* Gallery Modal - Will show all images initially */}
       <Modal
-        opened={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        size="xl"
-        title={t("hotelDetail.gallery")}
+        opened={isModalOpen && !expandedView}
+        onClose={closeGallery}
+        size="90%"
+        padding="md"
+        withCloseButton={true}
+        styles={{
+          content: { background: "rgba(0, 0, 0, 0.95)" },
+          header: { background: "rgba(0, 0, 0, 0.95)" },
+          close: { color: "white" },
+        }}
       >
-        <MasonryLayout
-          images={images}
-          onImageClick={handleImageClick} // Pass click handler
-        />
+        <Title order={2} className="text-white mb-6 ml-4">
+          {t("hotelDetail.gallery")} ({images.length})
+        </Title>
+
+        <SimpleGrid
+          cols={3}
+          spacing="md"
+          breakpoints={[
+            { maxWidth: "sm", cols: 2 },
+            { maxWidth: "xs", cols: 1 },
+          ]}
+        >
+          {images.map((image, index) => (
+            <div
+              key={index}
+              className="cursor-pointer transition-transform hover:scale-105 relative"
+              onClick={() => handleGalleryImageClick(image, index)}
+            >
+              <img
+                src={image.url}
+                alt={`Gallery ${index + 1}`}
+                className="w-full h-64 object-cover rounded-md"
+              />
+              {isPanoramaImage() && (
+                <div className="absolute top-2 right-2 bg-blue-500 text-white rounded-full p-1">
+                  <IconRotate360 size={18} />
+                </div>
+              )}
+            </div>
+          ))}
+        </SimpleGrid>
       </Modal>
 
-      {/* Modal for expanded image */}
-      {selectedImage && (
-        <Modal
-          opened={!!selectedImage}
-          onClose={() => {
-            setSelectedImage(null);
-            setCurrentImageIndex(null);
-          }}
-          size="lg"
-          centered
-          withCloseButton={false} // Disable default close button
-        >
-          <div className="relative">
-            {/* Close button inside the image */}
-            <button
-              onClick={() => {
-                setSelectedImage(null);
-                setCurrentImageIndex(null);
-              }}
-              className="absolute top-4 right-4 text-white bg-transparent p-2 hover:bg-black hover:bg-opacity-50 rounded-full transition"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
+      {/* Expanded Image Modal */}
+      <Modal
+        opened={isModalOpen && expandedView}
+        onClose={closeExpandedView}
+        size="95%"
+        padding={0}
+        withCloseButton={false}
+        styles={{
+          content: { background: "rgba(0, 0, 0, 0.98)" },
+        }}
+      >
+        <div className="relative p-4">
+          {/* Top controls */}
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex items-center gap-4">
+              <Button variant="subtle" color="gray" onClick={closeExpandedView}>
+                {t("hotelDetail.backToGallery")}
+              </Button>
 
-            {/* Image */}
-            <img
-              src={selectedImage.url}
-              alt={t("hotelDetail.expanded")}
-              className="w-full rounded-md"
-            />
+              {isPanoramaImage() && (
+                <Tooltip
+                  label={isPanoramaView ? "Exit 360° view" : "View in 360°"}
+                >
+                  <Switch
+                    checked={isPanoramaView}
+                    onChange={togglePanoramaView}
+                    label="360° View"
+                    color="blue"
+                    thumbIcon={
+                      isPanoramaView ? (
+                        <IconRotate360 size={12} stroke={3} />
+                      ) : (
+                        <IconEye size={12} stroke={3} />
+                      )
+                    }
+                  />
+                </Tooltip>
+              )}
+            </div>
 
-            {/* Navigation buttons */}
-            <button
-              onClick={handlePreviousImage}
-              className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white bg-transparent p-2 hover:bg-black hover:bg-opacity-50 rounded-full transition"
+            <Text
+              color="white"
+              size="md"
+              className="bg-black/30 px-3 py-1 rounded-full"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="w-8 h-8"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
-            <button
-              onClick={handleNextImage}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white bg-transparent p-2 hover:bg-black hover:bg-opacity-50 rounded-full transition"
+              {currentImageIndex + 1} / {images.length}
+            </Text>
+
+            <ActionIcon
+              variant="subtle"
+              color="gray"
+              onClick={closeGallery}
+              radius="xl"
+              size="lg"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="w-8 h-8"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
+              <IconX size={18} />
+            </ActionIcon>
           </div>
-        </Modal>
-      )}
+
+          {/* Image and navigation */}
+          <div
+            className="relative flex justify-center items-center"
+            style={{ minHeight: "70vh" }}
+          >
+            {!isPanoramaView ? (
+              <>
+                {/* Left navigation button - positioned absolutely */}
+                <div
+                  className="absolute left-0 z-10"
+                  style={{ transform: "translateX(-50%)" }}
+                >
+                  <ActionIcon
+                    variant="filled"
+                    color="dark"
+                    onClick={handlePreviousImage}
+                    radius="xl"
+                    size="xl"
+                    sx={{
+                      opacity: 0.7,
+                      "&:hover": { opacity: 1 },
+                      transition: "opacity 0.2s ease",
+                    }}
+                  >
+                    <IconArrowDown size={24} className="rotate-90" />
+                  </ActionIcon>
+                </div>
+
+                {/* Main image */}
+                <img
+                  src={selectedImage?.url}
+                  alt={t("hotelDetail.expanded")}
+                  className="max-h-[70vh] max-w-full object-contain"
+                />
+
+                {/* Right navigation button - positioned absolutely */}
+                <div
+                  className="absolute right-0 z-10"
+                  style={{ transform: "translateX(50%)" }}
+                >
+                  <ActionIcon
+                    variant="filled"
+                    color="dark"
+                    onClick={handleNextImage}
+                    radius="xl"
+                    size="xl"
+                    sx={{
+                      opacity: 0.7,
+                      "&:hover": { opacity: 1 },
+                      transition: "opacity 0.2s ease",
+                    }}
+                  >
+                    <IconArrowDown size={24} className="-rotate-90" />
+                  </ActionIcon>
+                </div>
+              </>
+            ) : (
+              /* 360° Panorama View */
+              <div
+                style={{
+                  width: "100%",
+                  height: "70vh",
+                  position: "relative",
+                }}
+              >
+                <PanoramaViewer
+                  imageUrl={selectedImage?.url}
+                  config={{
+                    pitch: 10,
+                    yaw: 180,
+                    hfov: 110,
+                  }}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Thumbnail strip at bottom */}
+          <div className="mt-4 overflow-x-auto">
+            <div className="flex space-x-2 justify-center">
+              {images.map((img, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => {
+                    setSelectedImage(img);
+                    setCurrentImageIndex(idx);
+                    setIsPanoramaView(false); // Reset panorama view when changing images
+                  }}
+                  className={`transition-all duration-200 cursor-pointer relative ${
+                    currentImageIndex === idx
+                      ? "border-2 border-blue-500 scale-105"
+                      : "border border-gray-700 opacity-70 hover:opacity-100"
+                  }`}
+                >
+                  <img
+                    src={img.url}
+                    alt={`thumbnail ${idx + 1}`}
+                    className="h-16 w-24 object-cover"
+                  />
+                  {isPanoramaImage() && (
+                    <div className="absolute top-1 right-1 bg-blue-500 text-white rounded-full p-0.5">
+                      <IconRotate360 size={10} />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Modal>
 
       {/* Hotel Information and Booking Section */}
       <Grid gutter="md" mt="md">

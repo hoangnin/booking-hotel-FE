@@ -1,10 +1,10 @@
 import { Carousel } from "@mantine/carousel";
 import { Button, Paper, Text, Title } from "@mantine/core";
 import classes from "./CardsCarousel.module.css";
-import { useRef } from "react";
-import Autoplay from "embla-carousel-autoplay";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useRef } from "react";
+import Autoplay from "embla-carousel-autoplay";
 
 function Card({ image, title, properties, locationId }) {
   const { t } = useTranslation();
@@ -90,7 +90,8 @@ const data = [
 ];
 
 export function CardsCarousel() {
-  const autoplay = useRef(Autoplay({ delay: 2000 }));
+  const autoplayRef = useRef(Autoplay({ delay: 3000 }));
+
   const slides = data.map((item) => (
     <Carousel.Slide key={item.title}>
       <Card {...item} />
@@ -103,11 +104,11 @@ export function CardsCarousel() {
       slideGap="md"
       align="start"
       slidesToScroll={1}
-      plugins={[autoplay.current]}
-      onMouseEnter={autoplay.current.stop}
-      onMouseLeave={autoplay.current.reset}
       style={{ padding: "0 16px" }}
       loop
+      plugins={[autoplayRef.current]}
+      onMouseEnter={autoplayRef.current.stop}
+      onMouseLeave={autoplayRef.current.reset}
     >
       {slides}
     </Carousel>
