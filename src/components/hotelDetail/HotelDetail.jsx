@@ -805,12 +805,11 @@ export function HotelDetail() {
   };
 
   // Function to determine if an image can be viewed in 360° mode
-  // Modified to always return true so the 360° button appears for all images
-  const isPanoramaImage = () => {
-    // Always return true to show the 360° button for all images
-    return true;
-
-    // Original detection logic (commented out):
+  // In a real app, this would check image metadata or a flag in the database
+  const isPanoramaImage = (image) => {
+    // Luôn trả về true cho tất cả ảnh để hiển thị button 360°
+    return image && image.url ? true : false;
+    // Phiên bản cũ:
     // return (
     //   image &&
     //   image.url &&
@@ -822,7 +821,7 @@ export function HotelDetail() {
 
   // Handler for toggling panorama view
   const togglePanoramaView = () => {
-    if (isPanoramaImage()) {
+    if (isPanoramaImage(selectedImage)) {
       setIsPanoramaView(!isPanoramaView);
     } else {
       setIsPanoramaView(false);
@@ -946,7 +945,7 @@ export function HotelDetail() {
                 alt={`Gallery ${index + 1}`}
                 className="w-full h-64 object-cover rounded-md"
               />
-              {isPanoramaImage() && (
+              {isPanoramaImage(image) && (
                 <div className="absolute top-2 right-2 bg-blue-500 text-white rounded-full p-1">
                   <IconRotate360 size={18} />
                 </div>
@@ -975,7 +974,7 @@ export function HotelDetail() {
                 {t("hotelDetail.backToGallery")}
               </Button>
 
-              {isPanoramaImage() && (
+              {isPanoramaImage(selectedImage) && (
                 <Tooltip
                   label={isPanoramaView ? "Exit 360° view" : "View in 360°"}
                 >
@@ -1114,7 +1113,7 @@ export function HotelDetail() {
                     alt={`thumbnail ${idx + 1}`}
                     className="h-16 w-24 object-cover"
                   />
-                  {isPanoramaImage() && (
+                  {isPanoramaImage(img) && (
                     <div className="absolute top-1 right-1 bg-blue-500 text-white rounded-full p-0.5">
                       <IconRotate360 size={10} />
                     </div>
