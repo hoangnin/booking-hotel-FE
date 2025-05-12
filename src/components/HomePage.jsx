@@ -11,10 +11,23 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { startLoading, stopLoading } from "../store/slices/loadingSlice";
 import { useTranslation } from "react-i18next"; // Import useTranslation hook
+import { useLocationLanguage } from "../hooks/useLocationLanguage"; // Import custom hook
 
 function Home() {
   const dispatch = useDispatch();
-  const { t } = useTranslation(); // Initialize useTranslation hook
+  const { t, i18n } = useTranslation(); // Get i18n instance to change language
+  const { locationLanguage, loading: locationLoading } = useLocationLanguage(); // Get language based on location
+
+  // Automatically change language based on location when component mounts
+  useEffect(() => {
+    if (locationLanguage && !localStorage.getItem("i18nextLng")) {
+      // Only change language if user hasn't manually set a language preference
+      i18n.changeLanguage(locationLanguage);
+      console.log(
+        `Automatically set language to: ${locationLanguage} based on geolocation`
+      );
+    }
+  }, [locationLanguage, i18n]);
 
   const {
     data: hotels,
@@ -56,7 +69,7 @@ function Home() {
     );
   };
 
-  if (isPending || !favoritesLoaded) {
+  if (isPending || !favoritesLoaded || locationLoading) {
     dispatch(startLoading());
   } else {
     dispatch(stopLoading());

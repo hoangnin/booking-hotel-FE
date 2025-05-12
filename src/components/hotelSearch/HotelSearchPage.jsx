@@ -32,9 +32,10 @@ import {
   IconCurrentLocation,
 } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
+import { useLocationLanguage } from "../../hooks/useLocationLanguage";
 
 export default function HotelSearchPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [searchParams, setSearchParams] = useState({
@@ -55,8 +56,17 @@ export default function HotelSearchPage() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const [address, setAddress] = useState(null);
   const [isGeocoding, setIsGeocoding] = useState(false);
+  const { locationLanguage } = useLocationLanguage();
 
-  // Update localStorage when recentlyViewed changes
+  useEffect(() => {
+    if (locationLanguage && !localStorage.getItem("i18nextLng")) {
+      i18n.changeLanguage(locationLanguage);
+      console.log(
+        `Automatically set language to: ${locationLanguage} in HotelSearchPage`
+      );
+    }
+  }, [locationLanguage, i18n]);
+
   useEffect(() => {
     localStorage.setItem(
       "recentlyViewedHotels",
@@ -97,7 +107,6 @@ export default function HotelSearchPage() {
     },
   });
 
-  // Fetch favorites when component mounts and when isLoggedIn changes
   const { data: favoritesData } = useQuery({
     queryKey: ["favorites"],
     queryFn: getFavorites,
@@ -137,7 +146,146 @@ export default function HotelSearchPage() {
           setIsGeocoding(true);
           const locationName = await fetchAddress(latitude, longitude);
           setAddress(locationName);
+          console.log("Find nearby detected location:", locationName);
           setIsGeocoding(false);
+
+          // Thử lấy thông tin chi tiết về vị trí từ Nominatim
+          try {
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
+            );
+            const data = await response.json();
+            console.log("Nominatim data in handleFindNearby:", data);
+
+            // Lấy thành phố và quốc gia
+            const country = data.address?.country;
+            const city =
+              data.address?.city ||
+              data.address?.town ||
+              data.address?.village ||
+              data.address?.state;
+
+            console.log(`Detected: City=${city}, Country=${country}`);
+
+            // Bản đồ các thành phố và ngôn ngữ tương ứng
+            const cityLangMap = {
+              Moscow: "ru",
+              "Saint Petersburg": "ru",
+              Москва: "ru",
+              "Санкт-Петербург": "ru",
+              Paris: "fr",
+              Lyon: "fr",
+              Tokyo: "ja",
+              Osaka: "ja",
+              Beijing: "zh",
+              Shanghai: "zh",
+              Seoul: "ko",
+              Busan: "ko",
+              Hanoi: "vi",
+              "Ho Chi Minh": "vi",
+              Riyadh: "sa",
+            };
+
+            // Bản đồ các quốc gia và ngôn ngữ tương ứng
+            const countryLangMap = {
+              Russia: "ru",
+              "Russian Federation": "ru",
+              France: "fr",
+              Japan: "ja",
+              China: "zh",
+              "South Korea": "ko",
+              "Korea, Republic of": "ko",
+              Vietnam: "vi",
+              "Saudi Arabia": "sa",
+              "United States": "en",
+              "United States of America": "en",
+              "United Kingdom": "en",
+            };
+
+            let languageDetected = false;
+
+            // Kiểm tra thành phố trước
+            if (city) {
+              // Kiểm tra khớp chính xác
+              if (cityLangMap[city]) {
+                i18n.changeLanguage(cityLangMap[city]);
+                console.log(
+                  `Changed language to ${cityLangMap[city]} based on exact city match: ${city}`
+                );
+                languageDetected = true;
+                // Lưu ngôn ngữ vào sessionStorage
+                sessionStorage.setItem("detectedLanguage", cityLangMap[city]);
+              } else {
+                // Kiểm tra khớp một phần
+                for (const [cityKey, lang] of Object.entries(cityLangMap)) {
+                  if (city.includes(cityKey) || cityKey.includes(city)) {
+                    i18n.changeLanguage(lang);
+                    console.log(
+                      `Changed language to ${lang} based on partial city match: ${cityKey} in ${city}`
+                    );
+                    languageDetected = true;
+                    // Lưu ngôn ngữ vào sessionStorage
+                    sessionStorage.setItem("detectedLanguage", lang);
+                    break;
+                  }
+                }
+              }
+            }
+
+            // Nếu không tìm thấy từ thành phố, thử từ quốc gia
+            if (!languageDetected && country) {
+              if (countryLangMap[country]) {
+                i18n.changeLanguage(countryLangMap[country]);
+                console.log(
+                  `Changed language to ${countryLangMap[country]} based on country: ${country}`
+                );
+                languageDetected = true;
+                // Lưu ngôn ngữ vào sessionStorage
+                sessionStorage.setItem(
+                  "detectedLanguage",
+                  countryLangMap[country]
+                );
+              } else {
+                // Kiểm tra khớp một phần
+                for (const [countryKey, lang] of Object.entries(
+                  countryLangMap
+                )) {
+                  if (
+                    country.includes(countryKey) ||
+                    countryKey.includes(country)
+                  ) {
+                    i18n.changeLanguage(lang);
+                    console.log(
+                      `Changed language to ${lang} based on partial country match: ${countryKey} in ${country}`
+                    );
+                    languageDetected = true;
+                    // Lưu ngôn ngữ vào sessionStorage
+                    sessionStorage.setItem("detectedLanguage", lang);
+                    break;
+                  }
+                }
+              }
+            }
+
+            // Trường hợp đặc biệt cho Moscow vì nó quan trọng
+            if (!languageDetected && locationName) {
+              if (
+                locationName.includes("Moscow") ||
+                locationName.includes("Москва")
+              ) {
+                i18n.changeLanguage("ru");
+                console.log(
+                  "Changed language to Russian based on Moscow detection in location name"
+                );
+                languageDetected = true;
+                // Lưu ngôn ngữ vào sessionStorage
+                sessionStorage.setItem("detectedLanguage", "ru");
+              }
+            }
+          } catch (err) {
+            console.error("Error getting detailed location info:", err);
+          }
+
           setSearchParams({
             name: "",
             locationId: null,
@@ -180,12 +328,10 @@ export default function HotelSearchPage() {
     if (!hotels) return;
 
     const filtered = hotels.filter((hotel) => {
-      // Price filter
       const priceInRange =
         hotel.price >= filters.price[0] && hotel.price <= filters.price[1];
       if (!priceInRange) return false;
 
-      // Amenities filter
       if (filters.amenities.length > 0) {
         const hotelAmenities = hotel.amenity.map((a) => a.name);
         const hasAllSelectedAmenities = filters.amenities.every((amenity) =>
@@ -194,7 +340,6 @@ export default function HotelSearchPage() {
         if (!hasAllSelectedAmenities) return false;
       }
 
-      // Rating filter
       if (filters.ratings.length > 0) {
         const hotelRating = Math.floor(hotel.rating);
         const passesRatingFilter = filters.ratings.some(
@@ -203,7 +348,6 @@ export default function HotelSearchPage() {
         if (!passesRatingFilter) return false;
       }
 
-      // Location filter
       if (filters.locations.length > 0) {
         if (!filters.locations.includes(hotel.location)) return false;
       }

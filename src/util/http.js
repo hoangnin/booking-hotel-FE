@@ -148,7 +148,8 @@ export const refreshToken = async () => {
     store.dispatch(loginAction());
 
     return res.data;
-  } catch (error) {
+  } catch (err) {
+    console.error("Token refresh failed:", err);
     throw new Error("Failed to refresh token");
   }
 };

@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   IconBook,
@@ -48,6 +48,7 @@ import {
 } from "../../store/slices/authSlice"; // Import logout action
 import LanguageSwitcher from "../LanguageSwitcher"; // Import LanguageSwitcher
 import { useTranslation } from "react-i18next"; // Import useTranslation hook
+import i18n from "i18next"; // Import i18n directly
 
 const mockdata = [
   {
@@ -155,6 +156,20 @@ export function HeaderMegaMenu() {
       </Group>
     </UnstyledButton>
   ));
+
+  // Force i18n refresh when component renders
+  useEffect(() => {
+    // Check if there's a session language that hasn't been applied to i18n yet
+    const sessionLanguage = sessionStorage.getItem("detectedLanguage");
+    const currentLanguage = i18n.language;
+
+    if (sessionLanguage && sessionLanguage !== currentLanguage) {
+      console.log(
+        `HeaderMegaMenu: Applying session language ${sessionLanguage}`
+      );
+      i18n.changeLanguage(sessionLanguage);
+    }
+  }, [i18n]);
 
   return (
     <>

@@ -46,8 +46,10 @@ i18n
   // init i18next
   .init({
     resources,
+    lng: "en",
     fallbackLng: "en",
-    debug: true,
+    debug: false,
+    keySeparator: ".",
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },
@@ -56,5 +58,11 @@ i18n
       caches: ["localStorage"],
     },
   });
+
+// Lưu i18n instance vào window object để có thể truy cập từ bất kỳ đâu
+if (typeof window !== "undefined") {
+  window.i18n = i18n;
+  console.log("Saved i18n instance to window object");
+}
 
 export default i18n;
