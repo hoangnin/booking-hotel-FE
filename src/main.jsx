@@ -10,6 +10,9 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
+// Import i18n configuration
+import "./i18n";
+
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     {/* Ensure the entire app is wrapped in the Provider */}

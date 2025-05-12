@@ -1,0 +1,312 @@
+{
+  "common": {
+    "welcome": "ホテルへようこそ",
+    "home": "ホーム",
+    "hotels": "ホテル",
+    "profile": "プロフィール",
+    "login": "ログイン",
+    "signup": "登録",
+    "logout": "ログアウト",
+    "search": "検索",
+    "error": "エラー",
+    "backToHome": "ホームに戻る",
+    "contactSupport": "サポートに連絡",
+    "loading": "読み込み中...",
+    "success": "成功",
+    "cancel": "キャンセル",
+    "remove": "削除"
+  },
+  "home": {
+    "title": "理想的な滞在先を見つける",
+    "description": "最高の価格でホテル、リゾート、バケーションレンタルを予約",
+    "searchPlaceholder": "どこへ行きますか？",
+    "checkIn": "チェックイン",
+    "checkOut": "チェックアウト",
+    "guests": "ゲスト",
+    "searchButton": "検索",
+    "heroTitle": {
+      "first": "あなたの",
+      "highlight": "理想的な",
+      "second": "ホテル",
+      "third": "を見つけよう"
+    },
+    "heroDescription": "最高の価格で何千ものホテル、リゾート、ホームステイを発見してください。簡単な予約、安全な支払い、限定特典があなたを待っています",
+    "features": {
+      "quickBooking": {
+        "title": "クイック予約",
+        "description": "わずか数分でお部屋を見つけて予約"
+      },
+      "bestPrice": {
+        "title": "最低価格保証",
+        "description": "最高のお得な料金のために複数のソースから価格を比較"
+      },
+      "realReviews": {
+        "title": "リアルなレビュー",
+        "description": "前の宿泊者からの本物のレビューを読む"
+      }
+    },
+    "buttons": {
+      "searchNow": "今すぐ検索",
+      "viewDeals": "特典を見る"
+    }
+  },
+  "hotel": {
+    "details": "ホテル詳細",
+    "amenities": "アメニティ",
+    "reviews": "レビュー",
+    "bookNow": "今すぐ予約",
+    "price": "価格",
+    "perNight": "一泊あたり"
+  },
+  "profile": {
+    "information": "個人情報",
+    "bookingHistory": "予約履歴",
+    "dashboard": "ダッシュボード",
+    "userManagement": "ユーザー管理"
+  },
+  "auth": {
+    "login": "アカウントにログイン",
+    "signup": "アカウント作成",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "confirmPassword": "パスワードを確認",
+    "username": "ユーザー名",
+    "rememberMe": "ログイン情報を保存",
+    "forgotPassword": "パスワードをお忘れですか？",
+    "dontHaveAccount": "アカウントをお持ちでないですか？",
+    "alreadyHaveAccount": "すでにアカウントをお持ちですか？",
+    "signupWithGoogle": "Googleで登録",
+    "signupWithFacebook": "Facebookで登録",
+    "loginWithGoogle": "Googleでログイン",
+    "loginWithFacebook": "Facebookでログイン",
+    "orSeparator": "または続ける",
+    "resetPassword": "パスワードをリセット",
+    "newPassword": "新しいパスワード",
+    "passwordsDoNotMatch": "パスワードが一致しません",
+    "accountBanned": "アカウント停止中",
+    "accountBannedMessage": "あなたのアカウントは停止されています。詳細については、サポートチームにお問い合わせください。"
+  },
+  "footer": {
+    "aboutUs": "会社概要",
+    "contactUs": "お問い合わせ",
+    "termsOfService": "利用規約",
+    "privacyPolicy": "プライバシーポリシー",
+    "helpCenter": "ヘルプセンター",
+    "copyright": "© 2024 Hotel. All rights reserved.",
+    "description": "理想的なホテル体験はここから始まります。夢の宿泊施設を見つけて予約しましょう。",
+    "sections": {
+      "about": {
+        "title": "概要",
+        "features": "機能",
+        "pricing": "価格",
+        "support": "サポート",
+        "forums": "フォーラム"
+      },
+      "project": {
+        "title": "プロジェクト",
+        "contribute": "貢献",
+        "mediaAssets": "メディア素材",
+        "changelog": "変更履歴",
+        "releases": "リリース"
+      },
+      "community": {
+        "title": "コミュニティ",
+        "discord": "Discordに参加",
+        "twitter": "Twitterをフォロー",
+        "newsletter": "メールニュースレター",
+        "github": "GitHubディスカッション"
+      }
+    }
+  },
+  "hotelDetail": {
+    "description": "説明",
+    "rooms": "部屋",
+    "location": "場所",
+    "bookNow": "今すぐ予約",
+    "checkAvailability": "空室状況を確認",
+    "roomType": "部屋タイプ",
+    "beds": "ベッド",
+    "capacity": "収容人数",
+    "facilities": "設備",
+    "stayInformation": "滞在情報",
+    "contact": "連絡先",
+    "amenitiesDescription": "施設のアメニティとサービスについて",
+    "viewMoreAmenities": "さらに{{count}}のアメニティを表示",
+    "roomRates": "客室料金",
+    "dateErrors": {
+      "pastDate": "過去の日付は選択できません。",
+      "bookedDates": "予約済みの日付を含む範囲は選択できません。"
+    },
+    "reviews": "レビュー",
+    "availability": "空室状況",
+    "selectDateRange": "希望する日付範囲を選択してください",
+    "bookedDatesNote": "注意：無効になっている日付はすでに予約されています。",
+    "invalidSelection": "無効な選択",
+    "hostInformation": "ホスト情報",
+    "loadingHostInfo": "ホスト情報を読み込み中...",
+    "errorHostInfo": "ホスト情報の読み込みエラー: ",
+    "loadingReviews": "レビューを読み込み中...",
+    "errorReviews": "レビューの読み込みエラー: ",
+    "reviewForm": {
+      "writeReview": "レビューを書く",
+      "shareExperience": "あなたの経験を共有...",
+      "addPhotos": "写真を追加",
+      "submitReview": "レビューを送信",
+      "reviewSubmitted": "レビューが正常に送信されました"
+    },
+    "reviewsCount": "{{count}}件のレビュー",
+    "starsLabel": "{{count}}つ星",
+    "loadMoreReviews": "さらにレビューを読み込む",
+    "showLess": "少なく表示",
+    "reviewAttachment": "レビュー添付",
+    "gallery": "ギャラリー",
+    "expanded": "拡大表示",
+    "weekdayRate": "月曜日〜木曜日",
+    "weekendRate": "金曜日〜日曜日",
+    "rentByMonth": "月単位でのレンタル",
+    "monthlyRate": "月額料金",
+    "minNights": "最小宿泊数",
+    "maxNights": "最大宿泊数",
+    "nightSingular": "1泊",
+    "nightsPlural": "{{count}}泊",
+    "priceIncreaseNote": "週末や祝日は料金が上がる場合があります"
+  },
+  "hotelSearch": {
+    "filter": "フィルター",
+    "sortBy": "並び替え",
+    "priceRange": "価格帯",
+    "rating": "評価",
+    "facilities": "設備",
+    "noResults": "結果が見つかりません",
+    "resultsCount": "{{count}}件のホテルが見つかりました",
+    "applyFilters": "フィルターを適用",
+    "resetFilters": "フィルターをリセット",
+    "andUp": "以上",
+    "nightsOption": "{{count}}泊",
+    "destinationLabel": "都市、場所またはホテル名",
+    "destinationPlaceholder": "目的地を入力してください",
+    "selectLocation": "場所を選択",
+    "selectDate": "日付を選択",
+    "nights": "泊数",
+    "selectNights": "泊数を選択",
+    "searchHotels": "ホテルを検索",
+    "clear": "クリア",
+    "recentlyViewed": "最近閲覧したホテル",
+    "findNearMe": "近くを検索",
+    "clearSearch": "検索をクリア",
+    "currentLocation": "現在地",
+    "loadingAddress": "住所を読み込み中...",
+    "active": "アクティブ"
+  },
+  "carousel": {
+    "explore": "探索"
+  },
+  "emailBanner": {
+    "title": "ちょっと待って...",
+    "subtitle": "ニュースレターに登録しましょう！",
+    "description": "重要な製品のアップデート、最新ニュース、コミュニティQ&Aセッションを見逃すことはありません。ニュースレターは毎週日曜日に配信されます。",
+    "emailPlaceholder": "あなたのメール",
+    "subscribeButton": "登録する"
+  },
+  "features": {
+    "supTitle": "主な特徴",
+    "title": {
+      "first": "体験する",
+      "highlight": "特別な",
+      "second": "予約"
+    },
+    "description": "最も簡単で便利なホテル予約体験を提供します。数千の高品質ホテル、競争力のある価格、そして専任サポートをご用意しています。",
+    "easyBooking": {
+      "title": "簡単予約",
+      "description": "数回のクリックだけでシンプルで迅速な予約プロセス"
+    },
+    "securePayment": {
+      "title": "安全な支払い",
+      "description": "セキュリティが保証された複数の支払い方法"
+    },
+    "support": {
+      "title": "24時間サポート",
+      "description": "サポートチームがいつでもお手伝いする準備ができています"
+    },
+    "deals": {
+      "title": "特別オファー",
+      "description": "特別プロモーションと限定オファーをご用意"
+    }
+  },
+  "faq": {
+    "title": "よくある質問",
+    "imageAlt": "よくある質問",
+    "resetPassword": {
+      "question": "パスワードをリセットするにはどうすればよいですか？",
+      "answer": "ログインページの「パスワードをお忘れですか？」リンクをクリックしてパスワードをリセットできます。登録済みのメールアドレスにパスワードリセット手順が記載されたメールが送信されます。"
+    },
+    "multipleAccounts": {
+      "question": "複数のアカウントを作成できますか？",
+      "answer": "ユーザーごとに1つのアカウントのみを維持することをお勧めします。同じユーザーからの複数のアカウントは、予約や特典に混乱や潜在的な問題を引き起こす可能性があります。"
+    },
+    "newsletter": {
+      "question": "月刊ニュースレターを購読するにはどうすればよいですか？",
+      "answer": "ホームページ下部の購読フォームにメールアドレスを入力するか、ログイン後にアカウント設定からニュースレターを購読できます。"
+    },
+    "creditCard": {
+      "question": "クレジットカード情報は安全に保存されますか？",
+      "answer": "はい、お支払い情報を保護するために業界標準の暗号化とセキュリティ対策を使用しています。クレジットカードデータが安全に保存および処理されるようにPCI DSS基準に準拠しています。"
+    }
+  },
+  "notFound": {
+    "title": "何かがおかしいようです...",
+    "description": "開こうとしているページは存在しません。アドレスを間違って入力したか、ページが別のURLに移動した可能性があります。これがエラーだと思われる場合は、サポートにお問い合わせください。",
+    "button": "ホームページに戻る"
+  },
+  "header": {
+    "navigation": "ナビゲーション",
+    "learn": "学ぶ",
+    "academy": "アカデミー",
+    "features": {
+      "title": "機能",
+      "viewAll": "すべて表示",
+      "openSource": {
+        "title": "オープンソース",
+        "description": "私たちのコードはオープンソースであり、誰でも使用して貢献できるようGitHubで公開されています"
+      },
+      "free": {
+        "title": "誰でも無料",
+        "description": "すべての基本サービスは個人利用と商用利用の両方で無料です"
+      },
+      "documentation": {
+        "title": "ドキュメント",
+        "description": "すぐに始められるための包括的なガイドとAPIリファレンス"
+      },
+      "security": {
+        "title": "セキュリティ",
+        "description": "定期的な監査と業界のベストプラクティスによりセキュリティを重視しています"
+      },
+      "analytics": {
+        "title": "分析",
+        "description": "顧客を理解しビジネスを改善するための詳細な分析"
+      },
+      "notifications": {
+        "title": "通知",
+        "description": "重要なイベントについてのリアルタイム通知"
+      }
+    },
+    "getStarted": {
+      "title": "始める",
+      "description": "今日から私たちのプラットフォームを使用してホテル予約体験を変革しましょう",
+      "button": "始める"
+    },
+    "menu": {
+      "application": "アプリケーション",
+      "settings": "設定",
+      "dangerZone": "危険ゾーン"
+    }
+  },
+  "hotelCard": {
+    "addedToFavorites": "お気に入りに追加しました！",
+    "failedToAddFavorites": "お気に入りに追加できませんでした。もう一度お試しください。",
+    "removedFromFavorites": "お気に入りから削除しました！",
+    "failedToRemoveFavorites": "お気に入りから削除できませんでした。もう一度お試しください。",
+    "removeFromFavorites": "お気に入りから削除",
+    "removeConfirmation": "このホテルをお気に入りから削除してもよろしいですか？"
+  }
+} 

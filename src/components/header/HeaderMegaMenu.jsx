@@ -46,37 +46,39 @@ import {
   closeAuthModal,
   openAuthModal,
 } from "../../store/slices/authSlice"; // Import logout action
+import LanguageSwitcher from "../LanguageSwitcher"; // Import LanguageSwitcher
+import { useTranslation } from "react-i18next"; // Import useTranslation hook
 
 const mockdata = [
   {
     icon: IconCode,
-    title: "Open source",
-    description: "This Pokémon's cry is very loud and distracting",
+    titleKey: "header.features.openSource.title",
+    descriptionKey: "header.features.openSource.description",
   },
   {
     icon: IconCoin,
-    title: "Free for everyone",
-    description: "The fluid of Smeargle's tail secretions changes",
+    titleKey: "header.features.free.title",
+    descriptionKey: "header.features.free.description",
   },
   {
     icon: IconBook,
-    title: "Documentation",
-    description: "Yanma is capable of seeing 360 degrees without",
+    titleKey: "header.features.documentation.title",
+    descriptionKey: "header.features.documentation.description",
   },
   {
     icon: IconFingerprint,
-    title: "Security",
-    description: "The shell's rounded shape and the grooves on its.",
+    titleKey: "header.features.security.title",
+    descriptionKey: "header.features.security.description",
   },
   {
     icon: IconChartPie3,
-    title: "Analytics",
-    description: "This Pokémon uses its flying ability to quickly chase",
+    titleKey: "header.features.analytics.title",
+    descriptionKey: "header.features.analytics.description",
   },
   {
     icon: IconNotification,
-    title: "Notifications",
-    description: "Combusken battles with the intensely hot flames it spews",
+    titleKey: "header.features.notifications.title",
+    descriptionKey: "header.features.notifications.description",
   },
 ];
 
@@ -120,6 +122,7 @@ export function HeaderMegaMenu() {
   const theme = useMantineTheme();
   const authModalOpen = useSelector((state) => state.auth.authModalOpen); // Lấy trạng thái mở modal
   const authModalType = useSelector((state) => state.auth.authModalType); // Lấy loại form (login/register)
+  const { t } = useTranslation(); // Initialize useTranslation hook
 
   const closeAuthModalHandler = () => {
     dispatch(closeAuthModal());
@@ -136,17 +139,17 @@ export function HeaderMegaMenu() {
   };
 
   const links = mockdata.map((item) => (
-    <UnstyledButton className={classes.subLink} key={item.title}>
+    <UnstyledButton className={classes.subLink} key={item.titleKey}>
       <Group wrap="nowrap" align="flex-start">
         <ThemeIcon size={34} variant="default" radius="md">
           <item.icon size={22} color={theme.colors.blue[6]} />
         </ThemeIcon>
         <div>
           <Text size="sm" fw={500}>
-            {item.title}
+            {t(item.titleKey)}
           </Text>
           <Text size="xs" c="dimmed">
-            {item.description}
+            {t(item.descriptionKey)}
           </Text>
         </div>
       </Group>
@@ -163,10 +166,10 @@ export function HeaderMegaMenu() {
             </Link>
             <Group h="100%" gap={0} visibleFrom="sm">
               <Link to="/" className={classes.link}>
-                Home
+                {t("common.home")}
               </Link>
               <Link to="/hotels" className={classes.link}>
-                Hotels
+                {t("common.hotels")}
               </Link>
               <HoverCard
                 width={600}
@@ -179,7 +182,7 @@ export function HeaderMegaMenu() {
                   <a href="#" className={classes.link}>
                     <Center inline>
                       <Box component="span" mr={5}>
-                        Features
+                        {t("header.features.title")}
                       </Box>
                       <IconChevronDown size={16} color={theme.colors.blue[6]} />
                     </Center>
@@ -188,9 +191,9 @@ export function HeaderMegaMenu() {
 
                 <HoverCard.Dropdown style={{ overflow: "hidden" }}>
                   <Group justify="space-between" px="md">
-                    <Text fw={500}>Features</Text>
+                    <Text fw={500}>{t("header.features.title")}</Text>
                     <Anchor href="#" fz="xs">
-                      View all
+                      {t("header.features.viewAll")}
                     </Anchor>
                   </Group>
 
@@ -204,25 +207,28 @@ export function HeaderMegaMenu() {
                     <Group justify="space-between">
                       <div>
                         <Text fw={500} fz="sm">
-                          Get started
+                          {t("header.getStarted.title")}
                         </Text>
                         <Text size="xs" c="dimmed">
-                          Their food sources have decreased, and their numbers
+                          {t("header.getStarted.description")}
                         </Text>
                       </div>
-                      <Button variant="default">Get started</Button>
+                      <Button variant="default">
+                        {t("header.getStarted.button")}
+                      </Button>
                     </Group>
                   </div>
                 </HoverCard.Dropdown>
               </HoverCard>
               <a href="#" className={classes.link}>
-                Learn
+                {t("header.learn")}
               </a>
               <a href="#" className={classes.link}>
-                Academy
+                {t("header.academy")}
               </a>
             </Group>
             <Group visibleFrom="sm">
+              <LanguageSwitcher />
               {isLoggedIn && userInfo ? (
                 <Menu withArrow>
                   <Menu.Target>
@@ -233,25 +239,25 @@ export function HeaderMegaMenu() {
                     />
                   </Menu.Target>
                   <Menu.Dropdown>
-                    <Menu.Label>Application</Menu.Label>
+                    <Menu.Label>{t("header.menu.application")}</Menu.Label>
                     <Link to="/profile" style={{ textDecoration: "none" }}>
                       <Menu.Item leftSection={<IconUser size={14} />}>
-                        Profile
+                        {t("common.profile")}
                       </Menu.Item>
                     </Link>
                     <Menu.Item leftSection={<IconSettings size={14} />}>
-                      Settings
+                      {t("header.menu.settings")}
                     </Menu.Item>
 
                     <Menu.Divider />
 
-                    <Menu.Label>Danger zone</Menu.Label>
+                    <Menu.Label>{t("header.menu.dangerZone")}</Menu.Label>
                     <Menu.Item
                       color="red"
                       leftSection={<IconTrash size={14} />}
                       onClick={handleLogout}
                     >
-                      Logout
+                      {t("common.logout")}
                     </Menu.Item>
                   </Menu.Dropdown>
                 </Menu>
@@ -261,10 +267,10 @@ export function HeaderMegaMenu() {
                     variant="default"
                     onClick={() => openAuthModalHandler("login")}
                   >
-                    Log in
+                    {t("common.login")}
                   </Button>
                   <Button onClick={() => openAuthModalHandler("register")}>
-                    Sign up
+                    {t("common.signup")}
                   </Button>
                 </>
               )}
@@ -283,7 +289,7 @@ export function HeaderMegaMenu() {
           onClose={closeDrawer}
           size="100%"
           padding="md"
-          title="Navigation"
+          title={t("header.navigation")}
           hiddenFrom="sm"
           zIndex={1000000}
         >
@@ -291,34 +297,39 @@ export function HeaderMegaMenu() {
             <Divider my="sm" />
 
             <a href="#" className={classes.link}>
-              Home
+              {t("common.home")}
             </a>
             <Link to="/hotels" className={classes.link}>
-              Hotels
+              {t("common.hotels")}
             </Link>
             <UnstyledButton className={classes.link} onClick={toggleLinks}>
               <Center inline>
                 <Box component="span" mr={5}>
-                  Features
+                  {t("header.features.title")}
                 </Box>
                 <IconChevronDown size={16} color={theme.colors.blue[6]} />
               </Center>
             </UnstyledButton>
             <Collapse in={linksOpened}>{links}</Collapse>
             <a href="#" className={classes.link}>
-              Learn
+              {t("header.learn")}
             </a>
             <a href="#" className={classes.link}>
-              Academy
+              {t("header.academy")}
             </a>
 
             <Divider my="sm" />
 
             <Group justify="center" grow pb="xl" px="md">
-              <Button variant="default" onClick={() => openAuthModal("login")}>
-                Log in
+              <Button
+                variant="default"
+                onClick={() => openAuthModalHandler("login")}
+              >
+                {t("common.login")}
               </Button>
-              <Button onClick={() => openAuthModal("register")}>Sign up</Button>
+              <Button onClick={() => openAuthModalHandler("register")}>
+                {t("common.signup")}
+              </Button>
             </Group>
           </ScrollArea>
         </Drawer>

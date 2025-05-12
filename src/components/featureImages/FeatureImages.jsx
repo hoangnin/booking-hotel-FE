@@ -8,31 +8,34 @@ import {
 } from "@mantine/core";
 import IMAGES from "./images.js";
 import classes from "./FeaturesImages.module.css";
+import { useTranslation } from "react-i18next";
 
 const data = [
   {
     image: "auditors",
-    title: "Easy Booking",
-    description: "Simple and quick booking process with just a few clicks",
+    titleKey: "features.easyBooking.title",
+    descriptionKey: "features.easyBooking.description",
   },
   {
     image: "lawyers",
-    title: "Secure Payment",
-    description: "Multiple payment methods with guaranteed security",
+    titleKey: "features.securePayment.title",
+    descriptionKey: "features.securePayment.description",
   },
   {
     image: "accountants",
-    title: "24/7 Support",
-    description: "Our support team is always ready to assist you",
+    titleKey: "features.support.title",
+    descriptionKey: "features.support.description",
   },
   {
     image: "others",
-    title: "Great Deals",
-    description: "Special promotions and exclusive offers available",
+    titleKey: "features.deals.title",
+    descriptionKey: "features.deals.description",
   },
 ];
 
 export function FeaturesImages() {
+  const { t } = useTranslation();
+
   const items = data.map((item) => (
     <div className={classes.item} key={item.image}>
       <ThemeIcon
@@ -46,27 +49,28 @@ export function FeaturesImages() {
 
       <div>
         <Text fw={700} fz="lg" className={classes.itemTitle}>
-          {item.title}
+          {t(item.titleKey)}
         </Text>
-        <Text c="dimmed">{item.description}</Text>
+        <Text c="dimmed">{t(item.descriptionKey)}</Text>
       </div>
     </div>
   ));
 
   return (
     <Container size={700} className={classes.wrapper}>
-      <Text className={classes.supTitle}>Key Features</Text>
+      <Text className={classes.supTitle}>{t("features.supTitle")}</Text>
 
       <Title className={classes.title} order={2}>
-        Experience <span className={classes.highlight}>Exceptional</span>{" "}
-        Booking
+        {t("features.title.first")}{" "}
+        <span className={classes.highlight}>
+          {t("features.title.highlight")}
+        </span>{" "}
+        {t("features.title.second")}
       </Title>
 
       <Container size={660} p={0}>
         <Text c="dimmed" className={classes.description}>
-          We provide you with the easiest and most convenient hotel booking
-          experience. With thousands of quality hotels, competitive prices, and
-          dedicated support.
+          {t("features.description")}
         </Text>
       </Container>
 

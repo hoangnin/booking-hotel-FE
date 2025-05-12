@@ -11,8 +11,10 @@ import {
 } from "@tabler/icons-react";
 import { useState, useMemo, useEffect } from "react";
 import { fetchLocations } from "../../util/http";
+import { useTranslation } from "react-i18next";
 
 export default function HotelSearchModal({ onSearch }) {
+  const { t } = useTranslation();
   const [city, setCity] = useState("");
   const [checkIn, setCheckIn] = useState(null);
   const [nights, setNights] = useState("7");
@@ -44,7 +46,7 @@ export default function HotelSearchModal({ onSearch }) {
         : null;
       return {
         value: nights.toString(),
-        label: `${nights} nights`,
+        label: t("hotelSearch.nightsOption", { count: nights }),
         description: date
           ? `${date.toLocaleDateString("en-US", {
               weekday: "short",
@@ -55,7 +57,7 @@ export default function HotelSearchModal({ onSearch }) {
           : "",
       };
     });
-  }, [checkIn]);
+  }, [checkIn, t]);
 
   const handleSearch = () => {
     onSearch({
@@ -100,10 +102,10 @@ export default function HotelSearchModal({ onSearch }) {
     <Paper shadow="sm" p="xl" withBorder radius="md">
       <Group align="flex-start" spacing="md" noWrap>
         <TextInput
-          label="City, location or hotel name"
+          label={t("hotelSearch.destinationLabel")}
           icon={<IconMapPin size={18} stroke={1.5} />}
           rightSection={<IconSearch size={16} stroke={1.5} />}
-          placeholder="Enter your destination"
+          placeholder={t("hotelSearch.destinationPlaceholder")}
           value={city}
           onChange={(e) => setCity(e.currentTarget.value)}
           styles={inputStyles}
@@ -111,8 +113,8 @@ export default function HotelSearchModal({ onSearch }) {
         />
 
         <Select
-          label="Location"
-          placeholder="Select a location"
+          label={t("hotelDetail.location")}
+          placeholder={t("hotelSearch.selectLocation")}
           data={locations.map((loc) => ({
             value: String(loc.id),
             label: loc.name,
@@ -126,10 +128,10 @@ export default function HotelSearchModal({ onSearch }) {
         />
 
         <DateInput
-          label="Check-in"
+          label={t("home.checkIn")}
           icon={<IconCalendarEvent size={18} stroke={1.5} />}
           rightSection={<IconClock size={16} stroke={1.5} />}
-          placeholder="Select date"
+          placeholder={t("hotelSearch.selectDate")}
           value={checkIn}
           onChange={setCheckIn}
           styles={inputStyles}
@@ -137,10 +139,10 @@ export default function HotelSearchModal({ onSearch }) {
         />
 
         <Select
-          label="Nights"
+          label={t("hotelSearch.nights")}
           icon={<IconMoon size={18} stroke={1.5} />}
           rightSection={<IconChevronDown size={16} stroke={1.5} />}
-          placeholder="Select nights"
+          placeholder={t("hotelSearch.selectNights")}
           data={nightsOptions}
           value={nights}
           onChange={setNights}
@@ -155,7 +157,7 @@ export default function HotelSearchModal({ onSearch }) {
         />
 
         <TextInput
-          label="Check-out"
+          label={t("home.checkOut")}
           icon={<IconCalendarEvent size={18} stroke={1.5} />}
           rightSection={<IconClock size={16} stroke={1.5} />}
           value={checkOutDate?.toLocaleDateString("en-US", {
@@ -182,7 +184,7 @@ export default function HotelSearchModal({ onSearch }) {
             size="md"
             style={{ height: 45 }}
           >
-            Search Hotels
+            {t("hotelSearch.searchHotels")}
           </Button>
           <Button
             leftIcon={<IconX size={18} stroke={1.5} />}
@@ -192,7 +194,7 @@ export default function HotelSearchModal({ onSearch }) {
             size="md"
             style={{ height: 45 }}
           >
-            Clear
+            {t("hotelSearch.clear")}
           </Button>
         </Group>
       </Group>

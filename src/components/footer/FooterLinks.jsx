@@ -7,38 +7,41 @@ import { ActionIcon, Container, Group, Text } from "@mantine/core";
 import logo from "../../assets/images/logo.svg.png";
 import classes from "./FooterLinks.module.css";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const data = [
   {
-    title: "About",
+    titleKey: "footer.sections.about.title",
     links: [
-      { label: "Features", link: "#" },
-      { label: "Pricing", link: "#" },
-      { label: "Support", link: "#" },
-      { label: "Forums", link: "#" },
+      { labelKey: "footer.sections.about.features", link: "#" },
+      { labelKey: "footer.sections.about.pricing", link: "#" },
+      { labelKey: "footer.sections.about.support", link: "#" },
+      { labelKey: "footer.sections.about.forums", link: "#" },
     ],
   },
   {
-    title: "Project",
+    titleKey: "footer.sections.project.title",
     links: [
-      { label: "Contribute", link: "#" },
-      { label: "Media assets", link: "#" },
-      { label: "Changelog", link: "#" },
-      { label: "Releases", link: "#" },
+      { labelKey: "footer.sections.project.contribute", link: "#" },
+      { labelKey: "footer.sections.project.mediaAssets", link: "#" },
+      { labelKey: "footer.sections.project.changelog", link: "#" },
+      { labelKey: "footer.sections.project.releases", link: "#" },
     ],
   },
   {
-    title: "Community",
+    titleKey: "footer.sections.community.title",
     links: [
-      { label: "Join Discord", link: "#" },
-      { label: "Follow on Twitter", link: "#" },
-      { label: "Email newsletter", link: "#" },
-      { label: "GitHub discussions", link: "#" },
+      { labelKey: "footer.sections.community.discord", link: "#" },
+      { labelKey: "footer.sections.community.twitter", link: "#" },
+      { labelKey: "footer.sections.community.newsletter", link: "#" },
+      { labelKey: "footer.sections.community.github", link: "#" },
     ],
   },
 ];
 
 export function FooterLinks() {
+  const { t } = useTranslation();
+
   const groups = data.map((group) => {
     const links = group.links.map((link, index) => (
       <Text
@@ -48,13 +51,13 @@ export function FooterLinks() {
         href={link.link}
         onClick={(event) => event.preventDefault()}
       >
-        {link.label}
+        {t(link.labelKey)}
       </Text>
     ));
 
     return (
-      <div className={classes.wrapper} key={group.title}>
-        <Text className={classes.title}>{group.title}</Text>
+      <div className={classes.wrapper} key={group.titleKey}>
+        <Text className={classes.title}>{t(group.titleKey)}</Text>
         {links}
       </div>
     );
@@ -68,14 +71,14 @@ export function FooterLinks() {
             <img src={logo} alt="Logo" style={{ height: 30 }} />
           </Link>
           <Text size="xs" c="dimmed" className={classes.description}>
-            Build fully functional accessible web applications faster than ever
+            {t("footer.description")}
           </Text>
         </div>
         <div className={classes.groups}>{groups}</div>
       </Container>
       <Container className={classes.afterFooter}>
         <Text c="dimmed" size="sm">
-          © 2020 mantine.dev. All rights reserved.
+          {t("footer.copyright")}
         </Text>
 
         <Group

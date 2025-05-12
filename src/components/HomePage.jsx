@@ -10,9 +10,12 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { startLoading, stopLoading } from "../store/slices/loadingSlice";
+import { useTranslation } from "react-i18next"; // Import useTranslation hook
 
 function Home() {
   const dispatch = useDispatch();
+  const { t } = useTranslation(); // Initialize useTranslation hook
+
   const {
     data: hotels,
     isPending,
@@ -58,7 +61,12 @@ function Home() {
   } else {
     dispatch(stopLoading());
   }
-  if (isError) return <div>Error: {error.message}</div>;
+  if (isError)
+    return (
+      <div>
+        {t("common.error")}: {error.message}
+      </div>
+    );
 
   return (
     <>

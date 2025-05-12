@@ -10,8 +10,10 @@ import {
   Divider,
 } from "@mantine/core";
 import { fetchLocations } from "../../util/http";
+import { useTranslation } from "react-i18next";
 
 export function HotelFilters({ hotels, onFilterChange }) {
+  const { t } = useTranslation();
   const [priceRange, setPriceRange] = useState([0, 15000]);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [selectedRatings, setSelectedRatings] = useState([]);
@@ -93,7 +95,7 @@ export function HotelFilters({ hotels, onFilterChange }) {
         {/* Price Range Filter */}
         <div>
           <Text fw={500} mb="xs">
-            Price Range
+            {t("hotelSearch.priceRange")}
           </Text>
           <RangeSlider
             min={0}
@@ -114,7 +116,7 @@ export function HotelFilters({ hotels, onFilterChange }) {
         {/* Amenities Filter */}
         <div>
           <Text fw={500} mb="xs">
-            Amenities
+            {t("hotelSearch.facilities")}
           </Text>
           <Stack spacing="xs">
             {allAmenities.map((amenity) => (
@@ -133,7 +135,7 @@ export function HotelFilters({ hotels, onFilterChange }) {
         {/* Rating Filter */}
         <div>
           <Text fw={500} mb="xs">
-            Rating
+            {t("hotelSearch.rating")}
           </Text>
           <Stack spacing="xs">
             {[5, 4, 3, 2, 1].map((rating) => (
@@ -143,7 +145,7 @@ export function HotelFilters({ hotels, onFilterChange }) {
                   onChange={() => handleRatingChange(rating)}
                 />
                 <Rating value={rating} readOnly />
-                <Text size="sm">& Up</Text>
+                <Text size="sm">{t("hotelSearch.andUp")}</Text>
               </Group>
             ))}
           </Stack>
@@ -154,7 +156,7 @@ export function HotelFilters({ hotels, onFilterChange }) {
         {/* Location Filter */}
         <div>
           <Text fw={500} mb="xs">
-            Location
+            {t("hotelDetail.location")}
           </Text>
           <Stack spacing="xs">
             {locations.map((location) => (

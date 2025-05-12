@@ -1,0 +1,312 @@
+{
+  "common": {
+    "welcome": "Bienvenue dans notre hôtel",
+    "home": "Accueil",
+    "hotels": "Hôtels",
+    "profile": "Profil",
+    "login": "Connexion",
+    "signup": "Inscription",
+    "logout": "Déconnexion",
+    "search": "Rechercher",
+    "error": "Erreur",
+    "backToHome": "Retour à l'accueil",
+    "contactSupport": "Contacter le support",
+    "loading": "Chargement...",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "remove": "Supprimer"
+  },
+  "home": {
+    "title": "Trouvez votre séjour parfait",
+    "description": "Réservez des hôtels, des resorts et des locations de vacances aux meilleurs prix",
+    "searchPlaceholder": "Où allez-vous ?",
+    "checkIn": "Arrivée",
+    "checkOut": "Départ",
+    "guests": "Voyageurs",
+    "searchButton": "Rechercher",
+    "heroTitle": {
+      "first": "Trouvez votre",
+      "highlight": "parfait",
+      "second": "hôtel",
+      "third": "pour votre voyage"
+    },
+    "heroDescription": "Découvrez des milliers d'hôtels, de resorts et de maisons d'hôtes aux meilleurs prix. Réservation facile, paiement sécurisé et offres exclusives vous attendent",
+    "features": {
+      "quickBooking": {
+        "title": "Réservation rapide",
+        "description": "Trouvez et réservez votre chambre en quelques minutes"
+      },
+      "bestPrice": {
+        "title": "Garantie du meilleur prix",
+        "description": "Comparez les prix de plusieurs sources pour obtenir la meilleure offre"
+      },
+      "realReviews": {
+        "title": "Avis authentiques",
+        "description": "Lisez les avis authentiques des précédents clients"
+      }
+    },
+    "buttons": {
+      "searchNow": "Rechercher maintenant",
+      "viewDeals": "Voir les offres"
+    }
+  },
+  "hotel": {
+    "details": "Détails de l'hôtel",
+    "amenities": "Équipements",
+    "reviews": "Avis",
+    "bookNow": "Réserver maintenant",
+    "price": "Prix",
+    "perNight": "par nuit"
+  },
+  "profile": {
+    "information": "Informations personnelles",
+    "bookingHistory": "Historique des réservations",
+    "dashboard": "Tableau de bord",
+    "userManagement": "Gestion des utilisateurs"
+  },
+  "auth": {
+    "login": "Connectez-vous à votre compte",
+    "signup": "Créer un compte",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "username": "Nom d'utilisateur",
+    "rememberMe": "Se souvenir de moi",
+    "forgotPassword": "Mot de passe oublié ?",
+    "dontHaveAccount": "Vous n'avez pas de compte ?",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "signupWithGoogle": "S'inscrire avec Google",
+    "signupWithFacebook": "S'inscrire avec Facebook",
+    "loginWithGoogle": "Se connecter avec Google", 
+    "loginWithFacebook": "Se connecter avec Facebook",
+    "orSeparator": "Ou continuer avec",
+    "resetPassword": "Réinitialiser votre mot de passe",
+    "newPassword": "Nouveau mot de passe",
+    "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
+    "accountBanned": "Compte banni",
+    "accountBannedMessage": "Votre compte a été banni. Veuillez contacter notre équipe d'assistance pour plus d'informations."
+  },
+  "footer": {
+    "aboutUs": "À propos de nous",
+    "contactUs": "Contactez-nous",
+    "termsOfService": "Conditions d'utilisation",
+    "privacyPolicy": "Politique de confidentialité",
+    "helpCenter": "Centre d'aide",
+    "copyright": "© 2024 Hotel. Tous droits réservés.",
+    "description": "Votre expérience hôtelière parfaite commence ici. Trouvez et réservez votre hébergement de rêve.",
+    "sections": {
+      "about": {
+        "title": "À propos",
+        "features": "Fonctionnalités",
+        "pricing": "Tarification",
+        "support": "Support",
+        "forums": "Forums"
+      },
+      "project": {
+        "title": "Projet",
+        "contribute": "Contribuer",
+        "mediaAssets": "Ressources média",
+        "changelog": "Journal des modifications",
+        "releases": "Versions"
+      },
+      "community": {
+        "title": "Communauté",
+        "discord": "Rejoindre Discord",
+        "twitter": "Suivre sur Twitter",
+        "newsletter": "Newsletter par email",
+        "github": "Discussions GitHub"
+      }
+    }
+  },
+  "hotelDetail": {
+    "description": "Description",
+    "rooms": "Chambres",
+    "location": "Emplacement",
+    "bookNow": "Réserver maintenant",
+    "checkAvailability": "Vérifier la disponibilité",
+    "roomType": "Type de chambre",
+    "beds": "Lits",
+    "capacity": "Capacité",
+    "facilities": "Installations",
+    "stayInformation": "Informations sur le séjour",
+    "contact": "Contact",
+    "amenitiesDescription": "À propos des équipements et services de l'établissement",
+    "viewMoreAmenities": "Voir {{count}} équipements supplémentaires",
+    "roomRates": "Tarifs des chambres",
+    "dateErrors": {
+      "pastDate": "Vous ne pouvez pas sélectionner une date dans le passé.",
+      "bookedDates": "Vous ne pouvez pas sélectionner une période qui inclut des dates déjà réservées."
+    },
+    "reviews": "Avis",
+    "availability": "Disponibilité",
+    "selectDateRange": "Sélectionnez votre période souhaitée",
+    "bookedDatesNote": "Remarque : Les dates désactivées sont déjà réservées.",
+    "invalidSelection": "Sélection invalide",
+    "hostInformation": "Informations sur l'hôte",
+    "loadingHostInfo": "Chargement des informations de l'hôte...",
+    "errorHostInfo": "Erreur lors du chargement des informations de l'hôte : ",
+    "loadingReviews": "Chargement des avis...",
+    "errorReviews": "Erreur lors du chargement des avis : ",
+    "reviewForm": {
+      "writeReview": "Écrire un avis",
+      "shareExperience": "Partagez votre expérience...",
+      "addPhotos": "Ajouter des photos",
+      "submitReview": "Soumettre l'avis",
+      "reviewSubmitted": "Avis soumis avec succès"
+    },
+    "reviewsCount": "{{count}} Avis",
+    "starsLabel": "{{count}} étoiles",
+    "loadMoreReviews": "Charger plus d'avis",
+    "showLess": "Afficher moins",
+    "reviewAttachment": "Pièce jointe de l'avis",
+    "gallery": "Galerie",
+    "expanded": "Étendu",
+    "weekdayRate": "Lundi - Jeudi",
+    "weekendRate": "Vendredi - Dimanche",
+    "rentByMonth": "Location au mois",
+    "monthlyRate": "Tarif mensuel",
+    "minNights": "Nombre minimum de nuits",
+    "maxNights": "Nombre maximum de nuits",
+    "nightSingular": "1 nuit",
+    "nightsPlural": "{{count}} nuits",
+    "priceIncreaseNote": "Les prix peuvent augmenter les week-ends ou jours fériés"
+  },
+  "hotelSearch": {
+    "filter": "Filtrer",
+    "sortBy": "Trier par",
+    "priceRange": "Fourchette de prix",
+    "rating": "Évaluation",
+    "facilities": "Équipements",
+    "noResults": "Aucun résultat trouvé",
+    "resultsCount": "{{count}} hôtels trouvés",
+    "applyFilters": "Appliquer les filtres",
+    "resetFilters": "Réinitialiser les filtres",
+    "andUp": "et plus",
+    "nightsOption": "{{count}} nuits",
+    "destinationLabel": "Ville, lieu ou nom d'hôtel",
+    "destinationPlaceholder": "Entrez votre destination",
+    "selectLocation": "Sélectionnez un lieu",
+    "selectDate": "Sélectionner une date",
+    "nights": "Nuits",
+    "selectNights": "Sélectionner les nuits",
+    "searchHotels": "Rechercher des hôtels",
+    "clear": "Effacer",
+    "recentlyViewed": "Consultés récemment",
+    "findNearMe": "Trouver près de moi",
+    "clearSearch": "Effacer la recherche",
+    "currentLocation": "Position actuelle",
+    "loadingAddress": "Chargement de l'adresse...",
+    "active": "Actif"
+  },
+  "carousel": {
+    "explore": "Explorer"
+  },
+  "emailBanner": {
+    "title": "Attendez une minute...",
+    "subtitle": "Abonnez-vous à notre newsletter !",
+    "description": "Vous ne manquerez jamais les mises à jour importantes de produits, les dernières nouvelles et les sessions de questions-réponses communautaires. Notre newsletter est hebdomadaire, chaque dimanche.",
+    "emailPlaceholder": "Votre email",
+    "subscribeButton": "S'abonner"
+  },
+  "features": {
+    "supTitle": "Fonctionnalités clés",
+    "title": {
+      "first": "Expérience",
+      "highlight": "exceptionnelle",
+      "second": "de réservation"
+    },
+    "description": "Nous vous offrons l'expérience de réservation d'hôtel la plus simple et la plus pratique. Avec des milliers d'hôtels de qualité, des prix compétitifs et un support dédié.",
+    "easyBooking": {
+      "title": "Réservation facile",
+      "description": "Processus de réservation simple et rapide en quelques clics"
+    },
+    "securePayment": {
+      "title": "Paiement sécurisé",
+      "description": "Plusieurs méthodes de paiement avec sécurité garantie"
+    },
+    "support": {
+      "title": "Support 24/7",
+      "description": "Notre équipe de support est toujours prête à vous aider"
+    },
+    "deals": {
+      "title": "Offres exceptionnelles",
+      "description": "Promotions spéciales et offres exclusives disponibles"
+    }
+  },
+  "faq": {
+    "title": "Questions fréquemment posées",
+    "imageAlt": "Questions fréquemment posées",
+    "resetPassword": {
+      "question": "Comment puis-je réinitialiser mon mot de passe ?",
+      "answer": "Vous pouvez réinitialiser votre mot de passe en cliquant sur le lien 'Mot de passe oublié ?' sur la page de connexion. Un email sera envoyé à votre adresse email enregistrée avec des instructions pour réinitialiser votre mot de passe."
+    },
+    "multipleAccounts": {
+      "question": "Puis-je créer plusieurs comptes ?",
+      "answer": "Nous recommandons d'avoir un seul compte par utilisateur. Plusieurs comptes du même utilisateur peuvent entraîner des confusions et des problèmes potentiels avec les réservations et les récompenses."
+    },
+    "newsletter": {
+      "question": "Comment puis-je m'abonner à la newsletter mensuelle ?",
+      "answer": "Vous pouvez vous abonner à notre newsletter en fournissant votre email dans le formulaire d'abonnement au bas de notre page d'accueil ou via les paramètres de votre compte après vous être connecté."
+    },
+    "creditCard": {
+      "question": "Stockez-vous les informations de carte de crédit en toute sécurité ?",
+      "answer": "Oui, nous utilisons un cryptage standard de l'industrie et des mesures de sécurité pour protéger vos informations de paiement. Nous respectons les normes PCI DSS pour garantir que vos données de carte de crédit sont stockées et traitées en toute sécurité."
+    }
+  },
+  "notFound": {
+    "title": "Quelque chose ne va pas...",
+    "description": "La page que vous essayez d'ouvrir n'existe pas. Vous avez peut-être mal saisi l'adresse, ou la page a été déplacée vers une autre URL. Si vous pensez qu'il s'agit d'une erreur, contactez le support.",
+    "button": "Retour à la page d'accueil"
+  },
+  "header": {
+    "navigation": "Navigation",
+    "learn": "Apprendre",
+    "academy": "Académie",
+    "features": {
+      "title": "Fonctionnalités",
+      "viewAll": "Voir tout",
+      "openSource": {
+        "title": "Open source",
+        "description": "Notre code est open source et disponible sur GitHub pour quiconque souhaite l'utiliser et y contribuer"
+      },
+      "free": {
+        "title": "Gratuit pour tous",
+        "description": "Tous nos services de base sont gratuits pour une utilisation personnelle et commerciale"
+      },
+      "documentation": {
+        "title": "Documentation",
+        "description": "Des guides complets et des références d'API pour vous aider à démarrer rapidement"
+      },
+      "security": {
+        "title": "Sécurité",
+        "description": "Nous prenons la sécurité au sérieux avec des audits réguliers et les meilleures pratiques de l'industrie"
+      },
+      "analytics": {
+        "title": "Analytique",
+        "description": "Des analyses détaillées pour vous aider à comprendre vos clients et améliorer votre activité"
+      },
+      "notifications": {
+        "title": "Notifications",
+        "description": "Notifications en temps réel pour vous tenir informé des événements importants"
+      }
+    },
+    "getStarted": {
+      "title": "Commencer",
+      "description": "Commencez à utiliser notre plateforme dès aujourd'hui et transformez votre expérience de réservation d'hôtel",
+      "button": "Commencer"
+    },
+    "menu": {
+      "application": "Application",
+      "settings": "Paramètres",
+      "dangerZone": "Zone dangereuse"
+    }
+  },
+  "hotelCard": {
+    "addedToFavorites": "Ajouté aux favoris avec succès !",
+    "failedToAddFavorites": "Échec de l'ajout aux favoris. Veuillez réessayer.",
+    "removedFromFavorites": "Supprimé des favoris avec succès !",
+    "failedToRemoveFavorites": "Échec de la suppression des favoris. Veuillez réessayer.",
+    "removeFromFavorites": "Retirer des favoris",
+    "removeConfirmation": "Êtes-vous sûr de vouloir retirer cet hôtel de vos favoris ?"
+  }
+} 

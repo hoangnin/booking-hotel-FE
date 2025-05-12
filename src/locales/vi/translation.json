@@ -1,0 +1,312 @@
+{
+  "common": {
+    "welcome": "Chào mừng đến với Khách sạn của chúng tôi",
+    "home": "Trang chủ",
+    "hotels": "Khách sạn",
+    "profile": "Hồ sơ",
+    "login": "Đăng nhập",
+    "signup": "Đăng ký",
+    "logout": "Đăng xuất",
+    "search": "Tìm kiếm",
+    "error": "Lỗi",
+    "backToHome": "Quay về trang chủ",
+    "contactSupport": "Liên hệ hỗ trợ",
+    "loading": "Đang tải...",
+    "success": "Thành công",
+    "cancel": "Hủy",
+    "remove": "Xóa"
+  },
+  "home": {
+    "title": "Tìm nơi lưu trú hoàn hảo của bạn",
+    "description": "Đặt phòng khách sạn, khu nghỉ dưỡng với giá tốt nhất",
+    "searchPlaceholder": "Bạn muốn đi đâu?",
+    "checkIn": "Nhận phòng",
+    "checkOut": "Trả phòng",
+    "guests": "Khách",
+    "searchButton": "Tìm kiếm",
+    "heroTitle": {
+      "first": "Tìm",
+      "highlight": "Khách sạn",
+      "second": "Hoàn hảo",
+      "third": "cho Chuyến đi của bạn"
+    },
+    "heroDescription": "Khám phá hàng ngàn khách sạn, khu nghỉ dưỡng và homestay với giá tốt nhất. Đặt phòng dễ dàng, thanh toán an toàn và nhiều ưu đãi độc quyền đang chờ đón bạn",
+    "features": {
+      "quickBooking": {
+        "title": "Đặt phòng nhanh chóng",
+        "description": "Tìm và đặt phòng của bạn chỉ trong vài phút"
+      },
+      "bestPrice": {
+        "title": "Đảm bảo giá tốt nhất",
+        "description": "So sánh giá từ nhiều nguồn để có ưu đãi tốt nhất"
+      },
+      "realReviews": {
+        "title": "Đánh giá thực",
+        "description": "Đọc đánh giá chân thực từ khách hàng trước đó"
+      }
+    },
+    "buttons": {
+      "searchNow": "Tìm kiếm ngay",
+      "viewDeals": "Xem ưu đãi"
+    }
+  },
+  "hotel": {
+    "details": "Chi tiết khách sạn",
+    "amenities": "Tiện nghi",
+    "reviews": "Đánh giá",
+    "bookNow": "Đặt ngay",
+    "price": "Giá",
+    "perNight": "mỗi đêm"
+  },
+  "profile": {
+    "information": "Thông tin cá nhân",
+    "bookingHistory": "Lịch sử đặt phòng",
+    "dashboard": "Bảng điều khiển",
+    "userManagement": "Quản lý người dùng"
+  },
+  "auth": {
+    "login": "Đăng nhập vào tài khoản",
+    "signup": "Tạo tài khoản mới",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "username": "Tên người dùng",
+    "rememberMe": "Ghi nhớ đăng nhập",
+    "forgotPassword": "Quên mật khẩu?",
+    "dontHaveAccount": "Chưa có tài khoản?",
+    "alreadyHaveAccount": "Đã có tài khoản?",
+    "signupWithGoogle": "Đăng ký với Google",
+    "signupWithFacebook": "Đăng ký với Facebook",
+    "loginWithGoogle": "Đăng nhập với Google", 
+    "loginWithFacebook": "Đăng nhập với Facebook",
+    "orSeparator": "Hoặc tiếp tục với",
+    "resetPassword": "Đặt lại mật khẩu",
+    "newPassword": "Mật khẩu mới",
+    "passwordsDoNotMatch": "Mật khẩu không khớp",
+    "accountBanned": "Tài khoản bị cấm",
+    "accountBannedMessage": "Tài khoản của bạn đã bị cấm. Vui lòng liên hệ với đội ngũ hỗ trợ để biết thêm thông tin."
+  },
+  "footer": {
+    "aboutUs": "Về chúng tôi",
+    "contactUs": "Liên hệ",
+    "termsOfService": "Điều khoản dịch vụ",
+    "privacyPolicy": "Chính sách bảo mật",
+    "helpCenter": "Trung tâm hỗ trợ",
+    "copyright": "© 2024 Hotel. Đã đăng ký bản quyền.",
+    "description": "Trải nghiệm khách sạn hoàn hảo của bạn bắt đầu từ đây. Tìm và đặt chỗ lưu trú mơ ước của bạn.",
+    "sections": {
+      "about": {
+        "title": "Giới thiệu",
+        "features": "Tính năng",
+        "pricing": "Bảng giá",
+        "support": "Hỗ trợ",
+        "forums": "Diễn đàn"
+      },
+      "project": {
+        "title": "Dự án",
+        "contribute": "Đóng góp",
+        "mediaAssets": "Tài nguyên đa phương tiện",
+        "changelog": "Lịch sử thay đổi",
+        "releases": "Phát hành"
+      },
+      "community": {
+        "title": "Cộng đồng",
+        "discord": "Tham gia Discord",
+        "twitter": "Theo dõi Twitter",
+        "newsletter": "Đăng ký bản tin",
+        "github": "Thảo luận trên GitHub"
+      }
+    }
+  },
+  "hotelDetail": {
+    "description": "Mô tả",
+    "rooms": "Phòng",
+    "location": "Vị trí",
+    "bookNow": "Đặt ngay",
+    "checkAvailability": "Kiểm tra phòng trống",
+    "roomType": "Loại phòng",
+    "beds": "Giường",
+    "capacity": "Sức chứa",
+    "facilities": "Tiện nghi",
+    "stayInformation": "Thông tin lưu trú",
+    "contact": "Liên hệ",
+    "amenitiesDescription": "Thông tin về tiện nghi và dịch vụ của chỗ nghỉ",
+    "viewMoreAmenities": "Xem thêm {{count}} tiện nghi",
+    "roomRates": "Giá phòng",
+    "dateErrors": {
+      "pastDate": "Bạn không thể chọn ngày trong quá khứ.",
+      "bookedDates": "Bạn không thể chọn khoảng thời gian đã được đặt."
+    },
+    "reviews": "Đánh giá",
+    "availability": "Khả dụng",
+    "selectDateRange": "Chọn khoảng thời gian mong muốn của bạn",
+    "bookedDatesNote": "Lưu ý: Các ngày bị vô hiệu hóa đã được đặt trước.",
+    "invalidSelection": "Lựa chọn không hợp lệ",
+    "hostInformation": "Thông tin chủ nhà",
+    "loadingHostInfo": "Đang tải thông tin chủ nhà...",
+    "errorHostInfo": "Lỗi tải thông tin chủ nhà: ",
+    "loadingReviews": "Đang tải đánh giá...",
+    "errorReviews": "Lỗi tải đánh giá: ",
+    "reviewForm": {
+      "writeReview": "Viết đánh giá",
+      "shareExperience": "Chia sẻ trải nghiệm của bạn...",
+      "addPhotos": "Thêm ảnh",
+      "submitReview": "Gửi đánh giá",
+      "reviewSubmitted": "Đã gửi đánh giá thành công"
+    },
+    "reviewsCount": "{{count}} Đánh giá",
+    "starsLabel": "{{count}} sao",
+    "loadMoreReviews": "Tải thêm đánh giá",
+    "showLess": "Hiển thị ít hơn",
+    "reviewAttachment": "Hình ảnh đánh giá",
+    "gallery": "Bộ sưu tập",
+    "expanded": "Mở rộng",
+    "weekdayRate": "Thứ Hai - Thứ Năm",
+    "weekendRate": "Thứ Sáu - Chủ Nhật",
+    "rentByMonth": "Thuê theo tháng",
+    "monthlyRate": "Giá hàng tháng",
+    "minNights": "Số đêm tối thiểu",
+    "maxNights": "Số đêm tối đa",
+    "nightSingular": "1 đêm",
+    "nightsPlural": "{{count}} đêm",
+    "priceIncreaseNote": "Giá có thể tăng vào cuối tuần hoặc ngày lễ"
+  },
+  "hotelSearch": {
+    "filter": "Bộ lọc",
+    "sortBy": "Sắp xếp theo",
+    "priceRange": "Khoảng giá",
+    "rating": "Đánh giá",
+    "facilities": "Tiện nghi",
+    "noResults": "Không tìm thấy kết quả",
+    "resultsCount": "Đã tìm thấy {{count}} khách sạn",
+    "applyFilters": "Áp dụng bộ lọc",
+    "resetFilters": "Đặt lại bộ lọc",
+    "andUp": "trở lên",
+    "nightsOption": "{{count}} đêm",
+    "destinationLabel": "Thành phố, địa điểm hoặc tên khách sạn",
+    "destinationPlaceholder": "Nhập điểm đến của bạn",
+    "selectLocation": "Chọn một địa điểm",
+    "selectDate": "Chọn ngày",
+    "nights": "Số đêm",
+    "selectNights": "Chọn số đêm",
+    "searchHotels": "Tìm khách sạn",
+    "clear": "Xóa",
+    "recentlyViewed": "Đã xem gần đây",
+    "findNearMe": "Tìm gần đây",
+    "clearSearch": "Xóa tìm kiếm",
+    "currentLocation": "Vị trí hiện tại",
+    "loadingAddress": "Đang tải địa chỉ...",
+    "active": "Đang hoạt động"
+  },
+  "carousel": {
+    "explore": "Khám phá"
+  },
+  "emailBanner": {
+    "title": "Chờ một chút...",
+    "subtitle": "Đăng ký nhận bản tin của chúng tôi!",
+    "description": "Bạn sẽ không bao giờ bỏ lỡ các cập nhật quan trọng về sản phẩm, tin tức mới nhất và các buổi hỏi đáp cộng đồng. Bản tin của chúng tôi được gửi một tuần một lần, vào mỗi Chủ nhật.",
+    "emailPlaceholder": "Email của bạn",
+    "subscribeButton": "Đăng ký"
+  },
+  "features": {
+    "supTitle": "Tính năng nổi bật",
+    "title": {
+      "first": "Trải nghiệm",
+      "highlight": "Đặc biệt",
+      "second": "khi Đặt phòng"
+    },
+    "description": "Chúng tôi cung cấp cho bạn trải nghiệm đặt phòng khách sạn dễ dàng và thuận tiện nhất. Với hàng nghìn khách sạn chất lượng, giá cả cạnh tranh và hỗ trợ tận tâm.",
+    "easyBooking": {
+      "title": "Đặt phòng dễ dàng",
+      "description": "Quy trình đặt phòng đơn giản và nhanh chóng chỉ với vài cú nhấp chuột"
+    },
+    "securePayment": {
+      "title": "Thanh toán an toàn",
+      "description": "Nhiều phương thức thanh toán với bảo mật đảm bảo"
+    },
+    "support": {
+      "title": "Hỗ trợ 24/7",
+      "description": "Đội ngũ hỗ trợ của chúng tôi luôn sẵn sàng giúp đỡ bạn"
+    },
+    "deals": {
+      "title": "Ưu đãi tuyệt vời",
+      "description": "Các chương trình khuyến mãi đặc biệt và ưu đãi độc quyền"
+    }
+  },
+  "faq": {
+    "title": "Câu hỏi thường gặp",
+    "imageAlt": "Câu hỏi thường gặp",
+    "resetPassword": {
+      "question": "Làm thế nào để đặt lại mật khẩu?",
+      "answer": "Bạn có thể đặt lại mật khẩu bằng cách nhấp vào liên kết 'Quên mật khẩu?' trên trang đăng nhập. Một email sẽ được gửi đến địa chỉ email đã đăng ký của bạn với hướng dẫn để đặt lại mật khẩu."
+    },
+    "multipleAccounts": {
+      "question": "Tôi có thể tạo nhiều tài khoản không?",
+      "answer": "Chúng tôi khuyên mỗi người dùng chỉ nên có một tài khoản. Nhiều tài khoản từ cùng một người dùng có thể dẫn đến nhầm lẫn và các vấn đề tiềm ẩn với đặt phòng và phần thưởng."
+    },
+    "newsletter": {
+      "question": "Làm thế nào để đăng ký nhận bản tin hàng tháng?",
+      "answer": "Bạn có thể đăng ký nhận bản tin của chúng tôi bằng cách cung cấp email của bạn trong biểu mẫu đăng ký ở cuối trang chủ hoặc thông qua cài đặt tài khoản sau khi đăng nhập."
+    },
+    "creditCard": {
+      "question": "Thông tin thẻ tín dụng có được lưu trữ an toàn không?",
+      "answer": "Có, chúng tôi sử dụng mã hóa và các biện pháp bảo mật tiêu chuẩn ngành để bảo vệ thông tin thanh toán của bạn. Chúng tôi tuân thủ các tiêu chuẩn PCI DSS để đảm bảo dữ liệu thẻ tín dụng của bạn được lưu trữ và xử lý an toàn."
+    }
+  },
+  "notFound": {
+    "title": "Có gì đó không đúng...",
+    "description": "Trang bạn đang cố mở không tồn tại. Có thể bạn đã nhập sai địa chỉ, hoặc trang đã được chuyển sang URL khác. Nếu bạn nghĩ đây là lỗi, hãy liên hệ hỗ trợ.",
+    "button": "Quay lại trang chủ"
+  },
+  "header": {
+    "navigation": "Điều hướng",
+    "learn": "Học hỏi",
+    "academy": "Học viện",
+    "features": {
+      "title": "Tính năng",
+      "viewAll": "Xem tất cả",
+      "openSource": {
+        "title": "Mã nguồn mở",
+        "description": "Mã của chúng tôi là mã nguồn mở và có sẵn trên GitHub cho bất kỳ ai sử dụng và đóng góp"
+      },
+      "free": {
+        "title": "Miễn phí cho tất cả",
+        "description": "Tất cả các dịch vụ cơ bản của chúng tôi đều miễn phí cho cả sử dụng cá nhân và thương mại"
+      },
+      "documentation": {
+        "title": "Tài liệu",
+        "description": "Hướng dẫn toàn diện và tài liệu tham khảo API để giúp bạn bắt đầu nhanh chóng"
+      },
+      "security": {
+        "title": "Bảo mật",
+        "description": "Chúng tôi coi trọng bảo mật với các đánh giá thường xuyên và thực hành tốt nhất trong ngành"
+      },
+      "analytics": {
+        "title": "Phân tích",
+        "description": "Phân tích chi tiết để giúp bạn hiểu khách hàng và cải thiện doanh nghiệp của mình"
+      },
+      "notifications": {
+        "title": "Thông báo",
+        "description": "Thông báo thời gian thực để cập nhật cho bạn về các sự kiện quan trọng"
+      }
+    },
+    "getStarted": {
+      "title": "Bắt đầu",
+      "description": "Bắt đầu sử dụng nền tảng của chúng tôi ngay hôm nay và chuyển đổi trải nghiệm đặt phòng khách sạn của bạn",
+      "button": "Bắt đầu"
+    },
+    "menu": {
+      "application": "Ứng dụng",
+      "settings": "Cài đặt",
+      "dangerZone": "Khu vực nguy hiểm"
+    }
+  },
+  "hotelCard": {
+    "addedToFavorites": "Đã thêm vào danh sách yêu thích thành công!",
+    "failedToAddFavorites": "Không thể thêm vào danh sách yêu thích. Vui lòng thử lại.",
+    "removedFromFavorites": "Đã xóa khỏi danh sách yêu thích thành công!",
+    "failedToRemoveFavorites": "Không thể xóa khỏi danh sách yêu thích. Vui lòng thử lại.",
+    "removeFromFavorites": "Xóa khỏi danh sách yêu thích",
+    "removeConfirmation": "Bạn có chắc chắn muốn xóa khách sạn này khỏi danh sách yêu thích không?"
+  }
+} 

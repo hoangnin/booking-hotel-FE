@@ -17,6 +17,7 @@ import { addFavorites, deleteFavorites } from "../../util/http";
 import { openAuthModal } from "../../store/slices/authSlice";
 import classes from "./HotelCard.module.css";
 import { amenityIcons } from "../../constants/amenityIcons";
+import { useTranslation } from "react-i18next";
 
 export function HotelCard({
   id,
@@ -29,6 +30,7 @@ export function HotelCard({
   onFavoriteChange,
   onView,
 }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -66,16 +68,16 @@ export function HotelCard({
       try {
         await addFavorites(id);
         notifications.show({
-          title: "Success",
-          message: "Added to favorites successfully!",
+          title: t("common.success"),
+          message: t("hotelCard.addedToFavorites"),
           color: "green",
         });
         onFavoriteChange(id, true);
       } catch (error) {
         console.error("Error adding to favorites:", error);
         notifications.show({
-          title: "Error",
-          message: "Failed to add to favorites. Please try again.",
+          title: t("common.error"),
+          message: t("hotelCard.failedToAddFavorites"),
           color: "red",
         });
       }
@@ -86,16 +88,16 @@ export function HotelCard({
     try {
       await deleteFavorites(id);
       notifications.show({
-        title: "Success",
-        message: "Removed from favorites successfully!",
+        title: t("common.success"),
+        message: t("hotelCard.removedFromFavorites"),
         color: "green",
       });
       onFavoriteChange(id, false);
     } catch (error) {
       console.error("Error removing from favorites:", error);
       notifications.show({
-        title: "Error",
-        message: "Failed to remove from favorites. Please try again.",
+        title: t("common.error"),
+        message: t("hotelCard.failedToRemoveFavorites"),
         color: "red",
       });
     } finally {
@@ -108,18 +110,16 @@ export function HotelCard({
       <Modal
         opened={confirmModalOpen}
         onClose={() => setConfirmModalOpen(false)}
-        title="Remove from Favorites"
+        title={t("hotelCard.removeFromFavorites")}
         centered
       >
-        <Text>
-          Are you sure you want to remove this hotel from your favorites?
-        </Text>
+        <Text>{t("hotelCard.removeConfirmation")}</Text>
         <Group justify="flex-end" mt="md">
           <Button variant="default" onClick={() => setConfirmModalOpen(false)}>
-            Cancel
+            {t("common.cancel")}
           </Button>
           <Button color="red" onClick={handleConfirmRemove}>
-            Remove
+            {t("common.remove")}
           </Button>
         </Group>
       </Modal>

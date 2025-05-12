@@ -31,8 +31,10 @@ import {
   IconX,
   IconCurrentLocation,
 } from "@tabler/icons-react";
+import { useTranslation } from "react-i18next";
 
 export default function HotelSearchPage() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [searchParams, setSearchParams] = useState({
@@ -240,7 +242,12 @@ export default function HotelSearchPage() {
   } else {
     dispatch(stopLoading());
   }
-  if (isError) return <div>Error: {error.message}</div>;
+  if (isError)
+    return (
+      <div>
+        {t("common.error")}: {error.message}
+      </div>
+    );
 
   return (
     <Container size="xl" py="xl">
@@ -252,7 +259,7 @@ export default function HotelSearchPage() {
           disabled={recentlyViewed.length === 0}
           loading={isLoading}
         >
-          Recently Viewed
+          {t("hotelSearch.recentlyViewed")}
         </Button>
         <Button
           leftIcon={<IconMapPin size={18} />}
@@ -260,7 +267,7 @@ export default function HotelSearchPage() {
           onClick={handleFindNearby}
           loading={isLoading}
         >
-          Find hotels near me
+          {t("hotelSearch.findNearMe")}
         </Button>
         <Button
           leftIcon={<IconX size={18} />}
@@ -269,7 +276,7 @@ export default function HotelSearchPage() {
           onClick={handleClearSearch}
           loading={isLoading}
         >
-          Clear Search
+          {t("hotelSearch.clearSearch")}
         </Button>
       </Group>
       <HotelSearchModal onSearch={handleSearch} />
@@ -287,13 +294,13 @@ export default function HotelSearchPage() {
               <IconCurrentLocation size={20} color="#228be6" />
               <Stack spacing={0}>
                 <Text size="sm" weight={500}>
-                  Current Location
+                  {t("hotelSearch.currentLocation")}
                 </Text>
                 {isGeocoding ? (
                   <Skeleton height={16} width={200} />
                 ) : (
                   <Text size="xs" color="dimmed">
-                    {address || "Loading address..."}
+                    {address || t("hotelSearch.loadingAddress")}
                   </Text>
                 )}
               </Stack>
@@ -303,7 +310,7 @@ export default function HotelSearchPage() {
               color="blue"
               leftSection={<IconMapPin size={12} />}
             >
-              Active
+              {t("hotelSearch.active")}
             </Badge>
           </Group>
         </Paper>

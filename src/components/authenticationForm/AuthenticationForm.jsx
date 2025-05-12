@@ -28,6 +28,7 @@ import {
   validateEmail,
   validatePassword,
 } from "../../util/validation";
+import { useTranslation } from "react-i18next";
 
 export function AuthenticationForm({
   type: initialType,
@@ -42,6 +43,7 @@ export function AuthenticationForm({
     { open: openForgotPassword, close: closeForgotPassword },
   ] = useDisclosure(false);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     toggle(initialType);
@@ -198,7 +200,7 @@ export function AuthenticationForm({
         overlayProps={{ radius: "sm", blur: 2 }}
       />
       <Text size="lg" fw={500}>
-        Welcome to Mantine, {type} with
+        {type === "login" ? t("auth.login") : t("auth.signup")}
       </Text>
 
       <Group grow mb="md" mt="md">
@@ -229,23 +231,21 @@ export function AuthenticationForm({
             },
           }}
         >
-          Sign in with Google
+          {type === "login"
+            ? t("auth.loginWithGoogle")
+            : t("auth.signupWithGoogle")}
         </Button>
       </Group>
 
-      <Divider
-        label="Or continue with username"
-        labelPosition="center"
-        my="lg"
-      />
+      <Divider label={t("auth.orSeparator")} labelPosition="center" my="lg" />
 
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack>
           {type === "register" && (
             <TextInput
               required
-              label="Email"
-              placeholder="Your email"
+              label={t("auth.email")}
+              placeholder={t("auth.email")}
               {...form.getInputProps("email")}
               radius="md"
             />
@@ -253,16 +253,16 @@ export function AuthenticationForm({
 
           <TextInput
             required
-            label="Username"
-            placeholder="Your username"
+            label={t("auth.username")}
+            placeholder={t("auth.username")}
             {...form.getInputProps("username")}
             radius="md"
           />
 
           <PasswordInput
             required
-            label="Password"
-            placeholder="Your password"
+            label={t("auth.password")}
+            placeholder={t("auth.password")}
             {...form.getInputProps("password")}
             radius="md"
             onFocus={() => setPasswordFocused(true)}
@@ -290,8 +290,8 @@ export function AuthenticationForm({
               size="xs"
             >
               {type === "register"
-                ? "Already have an account? Login"
-                : "Don't have an account? Register"}
+                ? t("auth.alreadyHaveAccount")
+                : t("auth.dontHaveAccount")}
             </Anchor>
             {type === "login" && (
               <Anchor
@@ -301,7 +301,7 @@ export function AuthenticationForm({
                 onClick={openForgotPassword}
                 size="xs"
               >
-                Forgot password?
+                {t("auth.forgotPassword")}
               </Anchor>
             )}
           </Group>
@@ -310,7 +310,7 @@ export function AuthenticationForm({
             radius="xl"
             disabled={type === "register" && !form.values.terms}
           >
-            {upperFirst(type)}
+            {type === "login" ? t("common.login") : t("common.signup")}
           </Button>
         </Group>
       </form>
@@ -325,8 +325,8 @@ export function AuthenticationForm({
           <Stack>
             <TextInput
               required
-              label="Email"
-              placeholder="Your email"
+              label={t("auth.email")}
+              placeholder={t("auth.email")}
               {...forgotPasswordForm.getInputProps("email")}
               radius="md"
             />

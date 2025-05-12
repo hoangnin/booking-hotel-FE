@@ -12,19 +12,24 @@ import {
 import { Link } from "react-router-dom";
 // import image from "./image.svg";
 import classes from "./HeroBullets.module.css";
+import { useTranslation } from "react-i18next";
 
 export function HeroBullets() {
+  const { t } = useTranslation();
+
   return (
     <Container size="lg" style={{ maxWidth: "1200px" }}>
       <div className={classes.inner}>
         <div className={classes.content}>
           <Title className={classes.title}>
-            Find Your <span className={classes.highlight}>Perfect</span> Hotel{" "}
-            <br /> for Your Journey
+            {t("home.heroTitle.first")}{" "}
+            <span className={classes.highlight}>
+              {t("home.heroTitle.highlight")}
+            </span>{" "}
+            {t("home.heroTitle.second")} <br /> {t("home.heroTitle.third")}
           </Title>
           <Text c="dimmed" mt="md">
-            Discover thousands of hotels, resorts, and homestays at the best
-            prices. Easy booking, secure payment, and exclusive deals await you
+            {t("home.heroDescription")}
           </Text>
 
           <List
@@ -38,14 +43,16 @@ export function HeroBullets() {
             }
           >
             <List.Item>
-              <b>Quick Booking</b> – Find and book your room in just minutes
+              <b>{t("home.features.quickBooking.title")}</b> –{" "}
+              {t("home.features.quickBooking.description")}
             </List.Item>
             <List.Item>
-              <b>Best Price Guarantee</b> – Compare prices from multiple sources
-              for the best deal
+              <b>{t("home.features.bestPrice.title")}</b> –{" "}
+              {t("home.features.bestPrice.description")}
             </List.Item>
             <List.Item>
-              <b>Real Reviews</b> – Read authentic reviews from previous guests
+              <b>{t("home.features.realReviews.title")}</b> –{" "}
+              {t("home.features.realReviews.description")}
             </List.Item>
           </List>
 
@@ -57,7 +64,7 @@ export function HeroBullets() {
               size="md"
               className={classes.control}
             >
-              Search Now
+              {t("home.buttons.searchNow")}
             </Button>
             <Button
               component={Link}
@@ -67,7 +74,7 @@ export function HeroBullets() {
               size="md"
               className={classes.control}
             >
-              View Deals
+              {t("home.buttons.viewDeals")}
             </Button>
           </Group>
         </div>

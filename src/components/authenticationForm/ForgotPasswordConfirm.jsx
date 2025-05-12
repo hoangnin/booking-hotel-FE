@@ -18,6 +18,7 @@ import { validatePassword } from "../../util/validation";
 import PasswordStrengthChecker from "../common/PasswordStrengthChecker";
 import { useDispatch } from "react-redux";
 import { openAuthModal } from "../../store/slices/authSlice";
+import { useTranslation } from "react-i18next";
 
 export function ForgotPasswordConfirm() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ export function ForgotPasswordConfirm() {
   const navigate = useNavigate();
   const [isPasswordFocused, setPasswordFocused] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   const form = useForm({
     initialValues: {
@@ -34,7 +36,7 @@ export function ForgotPasswordConfirm() {
     validate: {
       newPassword: validatePassword,
       confirmPassword: (value, values) =>
-        value !== values.newPassword ? "Passwords do not match" : null,
+        value !== values.newPassword ? t("auth.passwordsDoNotMatch") : null,
     },
   });
 
@@ -99,15 +101,15 @@ export function ForgotPasswordConfirm() {
           overlayProps={{ radius: "sm", blur: 2 }}
         />
         <Title order={2} ta="center" mt="md" mb={50}>
-          Reset Your Password
+          {t("auth.resetPassword")}
         </Title>
 
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Stack>
             <PasswordInput
               required
-              label="New Password"
-              placeholder="Your new password"
+              label={t("auth.newPassword")}
+              placeholder={t("auth.newPassword")}
               {...form.getInputProps("newPassword")}
               radius="md"
               onFocus={() => setPasswordFocused(true)}
@@ -119,14 +121,14 @@ export function ForgotPasswordConfirm() {
 
             <PasswordInput
               required
-              label="Confirm New Password"
-              placeholder="Confirm your new password"
+              label={t("auth.confirmPassword")}
+              placeholder={t("auth.confirmPassword")}
               {...form.getInputProps("confirmPassword")}
               radius="md"
             />
 
             <Button type="submit" radius="xl" loading={loading}>
-              Reset Password
+              {t("auth.resetPassword")}
             </Button>
           </Stack>
         </form>

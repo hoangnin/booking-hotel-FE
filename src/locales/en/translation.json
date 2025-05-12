@@ -1,0 +1,312 @@
+{
+  "common": {
+    "welcome": "Welcome to our Hotel",
+    "home": "Home",
+    "hotels": "Hotels",
+    "profile": "Profile",
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "search": "Search",
+    "error": "Error",
+    "backToHome": "Back to Home",
+    "contactSupport": "Contact Support",
+    "loading": "Loading...",
+    "success": "Success",
+    "cancel": "Cancel",
+    "remove": "Remove"
+  },
+  "home": {
+    "title": "Find your perfect stay",
+    "description": "Book hotels, resorts, and vacation rentals at the best prices",
+    "searchPlaceholder": "Where are you going?",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "guests": "Guests",
+    "searchButton": "Search",
+    "heroTitle": {
+      "first": "Find Your",
+      "highlight": "Perfect",
+      "second": "Hotel",
+      "third": "for Your Journey"
+    },
+    "heroDescription": "Discover thousands of hotels, resorts, and homestays at the best prices. Easy booking, secure payment, and exclusive deals await you",
+    "features": {
+      "quickBooking": {
+        "title": "Quick Booking",
+        "description": "Find and book your room in just minutes"
+      },
+      "bestPrice": {
+        "title": "Best Price Guarantee",
+        "description": "Compare prices from multiple sources for the best deal"
+      },
+      "realReviews": {
+        "title": "Real Reviews",
+        "description": "Read authentic reviews from previous guests"
+      }
+    },
+    "buttons": {
+      "searchNow": "Search Now",
+      "viewDeals": "View Deals"
+    }
+  },
+  "hotel": {
+    "details": "Hotel Details",
+    "amenities": "Amenities",
+    "reviews": "Reviews",
+    "bookNow": "Book Now",
+    "price": "Price",
+    "perNight": "per night"
+  },
+  "profile": {
+    "information": "Personal Information",
+    "bookingHistory": "Booking History",
+    "dashboard": "Dashboard",
+    "userManagement": "User Management"
+  },
+  "auth": {
+    "login": "Login to your account",
+    "signup": "Create an account",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "username": "Username",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "signupWithGoogle": "Sign up with Google",
+    "signupWithFacebook": "Sign up with Facebook",
+    "loginWithGoogle": "Login with Google", 
+    "loginWithFacebook": "Login with Facebook",
+    "orSeparator": "Or continue with",
+    "resetPassword": "Reset Your Password",
+    "newPassword": "New Password",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "accountBanned": "Account Banned",
+    "accountBannedMessage": "Your account has been banned. Please contact our support team for more information."
+  },
+  "footer": {
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "helpCenter": "Help Center",
+    "copyright": "© 2024 Hotel. All rights reserved.",
+    "description": "Your perfect hotel experience begins here. Find and book your dream accommodation.",
+    "sections": {
+      "about": {
+        "title": "About",
+        "features": "Features",
+        "pricing": "Pricing",
+        "support": "Support",
+        "forums": "Forums"
+      },
+      "project": {
+        "title": "Project",
+        "contribute": "Contribute",
+        "mediaAssets": "Media assets",
+        "changelog": "Changelog",
+        "releases": "Releases"
+      },
+      "community": {
+        "title": "Community",
+        "discord": "Join Discord",
+        "twitter": "Follow on Twitter",
+        "newsletter": "Email newsletter",
+        "github": "GitHub discussions"
+      }
+    }
+  },
+  "hotelDetail": {
+    "description": "Description",
+    "rooms": "Rooms",
+    "location": "Location",
+    "bookNow": "Book Now",
+    "checkAvailability": "Check Availability",
+    "roomType": "Room Type",
+    "beds": "Beds",
+    "capacity": "Capacity",
+    "facilities": "Facilities",
+    "stayInformation": "Stay Information",
+    "contact": "Contact",
+    "amenitiesDescription": "About the property's amenities and services",
+    "viewMoreAmenities": "View more {{count}} amenities",
+    "roomRates": "Room Rates",
+    "dateErrors": {
+      "pastDate": "You cannot select a date in the past.",
+      "bookedDates": "You cannot select a range that includes booked dates."
+    },
+    "reviews": "Reviews",
+    "availability": "Availability",
+    "selectDateRange": "Select your desired date range",
+    "bookedDatesNote": "Note: The dates that are disabled have already been booked.",
+    "invalidSelection": "Invalid Selection",
+    "hostInformation": "Host Information",
+    "loadingHostInfo": "Loading host information...",
+    "errorHostInfo": "Error loading host information: ",
+    "loadingReviews": "Loading reviews...",
+    "errorReviews": "Error loading reviews: ",
+    "reviewForm": {
+      "writeReview": "Write a Review",
+      "shareExperience": "Share your experience...",
+      "addPhotos": "Add Photos",
+      "submitReview": "Submit Review",
+      "reviewSubmitted": "Review submitted successfully"
+    },
+    "reviewsCount": "{{count}} Reviews",
+    "starsLabel": "{{count}} stars",
+    "loadMoreReviews": "Load More Reviews",
+    "showLess": "Show Less",
+    "reviewAttachment": "Review attachment",
+    "gallery": "Gallery",
+    "expanded": "Expanded",
+    "weekdayRate": "Monday - Thursday",
+    "weekendRate": "Friday - Sunday",
+    "rentByMonth": "Rent by month",
+    "monthlyRate": "Monthly rate",
+    "minNights": "Minimum number of nights",
+    "maxNights": "Max number of nights",
+    "nightSingular": "1 night",
+    "nightsPlural": "{{count}} nights",
+    "priceIncreaseNote": "Prices may increase on weekends or holidays"
+  },
+  "hotelSearch": {
+    "filter": "Filter",
+    "sortBy": "Sort By",
+    "priceRange": "Price Range",
+    "rating": "Rating",
+    "facilities": "Facilities",
+    "noResults": "No results found",
+    "resultsCount": "{{count}} hotels found",
+    "applyFilters": "Apply Filters",
+    "resetFilters": "Reset Filters",
+    "andUp": "& Up",
+    "nightsOption": "{{count}} nights",
+    "destinationLabel": "City, location or hotel name",
+    "destinationPlaceholder": "Enter your destination",
+    "selectLocation": "Select a location",
+    "selectDate": "Select date",
+    "nights": "Nights",
+    "selectNights": "Select nights",
+    "searchHotels": "Search Hotels",
+    "clear": "Clear",
+    "recentlyViewed": "Recently Viewed",
+    "findNearMe": "Find Near Me",
+    "clearSearch": "Clear Search",
+    "currentLocation": "Current Location",
+    "loadingAddress": "Loading address...",
+    "active": "Active"
+  },
+  "carousel": {
+    "explore": "Explore"
+  },
+  "emailBanner": {
+    "title": "Wait a minute...",
+    "subtitle": "Subscribe to our newsletter!",
+    "description": "You will never miss important product updates, latest news and community QA sessions. Our newsletter is once a week, every Sunday.",
+    "emailPlaceholder": "Your email",
+    "subscribeButton": "Subscribe"
+  },
+  "features": {
+    "supTitle": "Key Features",
+    "title": {
+      "first": "Experience",
+      "highlight": "Exceptional",
+      "second": "Booking"
+    },
+    "description": "We provide you with the easiest and most convenient hotel booking experience. With thousands of quality hotels, competitive prices, and dedicated support.",
+    "easyBooking": {
+      "title": "Easy Booking",
+      "description": "Simple and quick booking process with just a few clicks"
+    },
+    "securePayment": {
+      "title": "Secure Payment",
+      "description": "Multiple payment methods with guaranteed security"
+    },
+    "support": {
+      "title": "24/7 Support",
+      "description": "Our support team is always ready to assist you"
+    },
+    "deals": {
+      "title": "Great Deals",
+      "description": "Special promotions and exclusive offers available"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "imageAlt": "Frequently Asked Questions",
+    "resetPassword": {
+      "question": "How can I reset my password?",
+      "answer": "You can reset your password by clicking on the 'Forgot password?' link on the login page. An email will be sent to your registered email address with instructions to reset your password."
+    },
+    "multipleAccounts": {
+      "question": "Can I create more than one account?",
+      "answer": "We recommend having only one account per user. Multiple accounts from the same user may lead to confusion and potential issues with bookings and rewards."
+    },
+    "newsletter": {
+      "question": "How can I subscribe to monthly newsletter?",
+      "answer": "You can subscribe to our newsletter by providing your email in the subscription form at the bottom of our homepage or through your account settings after logging in."
+    },
+    "creditCard": {
+      "question": "Do you store credit card information securely?",
+      "answer": "Yes, we use industry-standard encryption and security measures to protect your payment information. We comply with PCI DSS standards to ensure your credit card data is stored and processed securely."
+    }
+  },
+  "notFound": {
+    "title": "Something is not right...",
+    "description": "Page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL. If you think this is an error contact support.",
+    "button": "Get back to home page"
+  },
+  "header": {
+    "navigation": "Navigation",
+    "learn": "Learn",
+    "academy": "Academy",
+    "features": {
+      "title": "Features",
+      "viewAll": "View all",
+      "openSource": {
+        "title": "Open source",
+        "description": "Our code is open source and available on GitHub for anyone to use and contribute"
+      },
+      "free": {
+        "title": "Free for everyone",
+        "description": "All our basic services are free for both personal and commercial use"
+      },
+      "documentation": {
+        "title": "Documentation",
+        "description": "Comprehensive guides and API references to help you get started quickly"
+      },
+      "security": {
+        "title": "Security",
+        "description": "We take security seriously with regular audits and industry best practices"
+      },
+      "analytics": {
+        "title": "Analytics",
+        "description": "Detailed analytics to help you understand your customers and improve your business"
+      },
+      "notifications": {
+        "title": "Notifications",
+        "description": "Real-time notifications to keep you updated on important events"
+      }
+    },
+    "getStarted": {
+      "title": "Get started",
+      "description": "Start using our platform today and transform your hotel booking experience",
+      "button": "Get started"
+    },
+    "menu": {
+      "application": "Application",
+      "settings": "Settings",
+      "dangerZone": "Danger zone"
+    }
+  },
+  "hotelCard": {
+    "addedToFavorites": "Added to favorites successfully!",
+    "failedToAddFavorites": "Failed to add to favorites. Please try again.",
+    "removedFromFavorites": "Removed from favorites successfully!",
+    "failedToRemoveFavorites": "Failed to remove from favorites. Please try again.",
+    "removeFromFavorites": "Remove from Favorites",
+    "removeConfirmation": "Are you sure you want to remove this hotel from your favorites?"
+  }
+} 

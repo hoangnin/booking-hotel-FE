@@ -1,0 +1,312 @@
+{
+  "common": {
+    "welcome": "مرحبًا بك في فندقنا",
+    "home": "الرئيسية",
+    "hotels": "الفنادق",
+    "profile": "الملف الشخصي",
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "logout": "تسجيل الخروج",
+    "search": "بحث",
+    "error": "خطأ",
+    "backToHome": "العودة إلى الصفحة الرئيسية",
+    "contactSupport": "الاتصال بالدعم",
+    "loading": "جارٍ التحميل...",
+    "success": "تم بنجاح",
+    "cancel": "إلغاء",
+    "remove": "إزالة"
+  },
+  "home": {
+    "title": "ابحث عن إقامتك المثالية",
+    "description": "احجز الفنادق والمنتجعات وأماكن الإقامة للعطلات بأفضل الأسعار",
+    "searchPlaceholder": "إلى أين أنت ذاهب؟",
+    "checkIn": "تسجيل الوصول",
+    "checkOut": "تسجيل المغادرة",
+    "guests": "الضيوف",
+    "searchButton": "بحث",
+    "heroTitle": {
+      "first": "ابحث عن",
+      "highlight": "المثالي",
+      "second": "فندقك",
+      "third": "لرحلتك"
+    },
+    "heroDescription": "اكتشف آلاف الفنادق والمنتجعات وبيوت الضيافة بأفضل الأسعار. حجز سهل، دفع آمن، وعروض حصرية في انتظارك",
+    "features": {
+      "quickBooking": {
+        "title": "حجز سريع",
+        "description": "ابحث واحجز غرفتك في دقائق معدودة"
+      },
+      "bestPrice": {
+        "title": "ضمان أفضل سعر",
+        "description": "قارن الأسعار من مصادر متعددة للحصول على أفضل صفقة"
+      },
+      "realReviews": {
+        "title": "تقييمات حقيقية",
+        "description": "اقرأ تقييمات حقيقية من ضيوف سابقين"
+      }
+    },
+    "buttons": {
+      "searchNow": "ابحث الآن",
+      "viewDeals": "عرض العروض"
+    }
+  },
+  "hotel": {
+    "details": "تفاصيل الفندق",
+    "amenities": "المرافق",
+    "reviews": "التقييمات",
+    "bookNow": "احجز الآن",
+    "price": "السعر",
+    "perNight": "لليلة الواحدة"
+  },
+  "profile": {
+    "information": "المعلومات الشخصية",
+    "bookingHistory": "سجل الحجوزات",
+    "dashboard": "لوحة التحكم",
+    "userManagement": "إدارة المستخدمين"
+  },
+  "auth": {
+    "login": "تسجيل الدخول إلى حسابك",
+    "signup": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "username": "اسم المستخدم",
+    "rememberMe": "تذكرني",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "alreadyHaveAccount": "لديك حساب بالفعل؟",
+    "signupWithGoogle": "التسجيل باستخدام Google",
+    "signupWithFacebook": "التسجيل باستخدام Facebook",
+    "loginWithGoogle": "تسجيل الدخول باستخدام Google", 
+    "loginWithFacebook": "تسجيل الدخول باستخدام Facebook",
+    "orSeparator": "أو المتابعة باستخدام",
+    "resetPassword": "إعادة تعيين كلمة المرور",
+    "newPassword": "كلمة المرور الجديدة",
+    "passwordsDoNotMatch": "كلمات المرور غير متطابقة",
+    "accountBanned": "الحساب محظور",
+    "accountBannedMessage": "تم حظر حسابك. يرجى الاتصال بفريق الدعم لمزيد من المعلومات."
+  },
+  "footer": {
+    "aboutUs": "عن الشركة",
+    "contactUs": "اتصل بنا",
+    "termsOfService": "شروط الخدمة",
+    "privacyPolicy": "سياسة الخصوصية",
+    "helpCenter": "مركز المساعدة",
+    "copyright": "© 2024 Hotel. جميع الحقوق محفوظة.",
+    "description": "تبدأ تجربة الإقامة المثالية في الفندق من هنا. ابحث واحجز مكان إقامتك المفضل.",
+    "sections": {
+      "about": {
+        "title": "عن المشروع",
+        "features": "الميزات",
+        "pricing": "التسعير",
+        "support": "الدعم",
+        "forums": "المنتديات"
+      },
+      "project": {
+        "title": "المشروع",
+        "contribute": "المساهمة",
+        "mediaAssets": "الموارد الإعلامية",
+        "changelog": "سجل التغييرات",
+        "releases": "الإصدارات"
+      },
+      "community": {
+        "title": "المجتمع",
+        "discord": "انضم إلى Discord",
+        "twitter": "تابعنا على Twitter",
+        "newsletter": "النشرة البريدية",
+        "github": "مناقشات GitHub"
+      }
+    }
+  },
+  "hotelDetail": {
+    "description": "الوصف",
+    "rooms": "الغرف",
+    "location": "الموقع",
+    "bookNow": "احجز الآن",
+    "checkAvailability": "التحقق من التوفر",
+    "roomType": "نوع الغرفة",
+    "beds": "الأسرّة",
+    "capacity": "السعة",
+    "facilities": "المرافق",
+    "stayInformation": "معلومات الإقامة",
+    "contact": "الاتصال",
+    "amenitiesDescription": "حول مرافق وخدمات المنشأة",
+    "viewMoreAmenities": "عرض {{count}} مرافق إضافية",
+    "roomRates": "أسعار الغرف",
+    "dateErrors": {
+      "pastDate": "لا يمكنك تحديد تاريخ في الماضي.",
+      "bookedDates": "لا يمكنك تحديد فترة تتضمن تواريخ محجوزة بالفعل."
+    },
+    "reviews": "التقييمات",
+    "availability": "التوفر",
+    "selectDateRange": "حدد الفترة المطلوبة",
+    "bookedDatesNote": "ملاحظة: التواريخ المعطلة محجوزة بالفعل.",
+    "invalidSelection": "اختيار غير صالح",
+    "hostInformation": "معلومات المضيف",
+    "loadingHostInfo": "جارٍ تحميل معلومات المضيف...",
+    "errorHostInfo": "خطأ في تحميل معلومات المضيف: ",
+    "loadingReviews": "جارٍ تحميل التقييمات...",
+    "errorReviews": "خطأ في تحميل التقييمات: ",
+    "reviewForm": {
+      "writeReview": "كتابة تقييم",
+      "shareExperience": "شارك تجربتك...",
+      "addPhotos": "إضافة صور",
+      "submitReview": "إرسال التقييم",
+      "reviewSubmitted": "تم إرسال التقييم بنجاح"
+    },
+    "reviewsCount": "{{count}} تقييمات",
+    "starsLabel": "{{count}} نجوم",
+    "loadMoreReviews": "تحميل المزيد من التقييمات",
+    "showLess": "عرض أقل",
+    "reviewAttachment": "مرفق التقييم",
+    "gallery": "معرض الصور",
+    "expanded": "موسع",
+    "weekdayRate": "الاثنين - الخميس",
+    "weekendRate": "الجمعة - الأحد",
+    "rentByMonth": "الإيجار الشهري",
+    "monthlyRate": "السعر الشهري",
+    "minNights": "الحد الأدنى لعدد الليالي",
+    "maxNights": "الحد الأقصى لعدد الليالي",
+    "nightSingular": "ليلة واحدة",
+    "nightsPlural": "{{count}} ليالي",
+    "priceIncreaseNote": "قد ترتفع الأسعار في عطلات نهاية الأسبوع أو العطلات الرسمية"
+  },
+  "hotelSearch": {
+    "filter": "تصفية",
+    "sortBy": "ترتيب حسب",
+    "priceRange": "نطاق السعر",
+    "rating": "التقييم",
+    "facilities": "المرافق",
+    "noResults": "لم يتم العثور على نتائج",
+    "resultsCount": "تم العثور على {{count}} فندق",
+    "applyFilters": "تطبيق الفلاتر",
+    "resetFilters": "إعادة تعيين الفلاتر",
+    "andUp": "وما فوق",
+    "nightsOption": "{{count}} ليالي",
+    "destinationLabel": "المدينة، المكان أو اسم الفندق",
+    "destinationPlaceholder": "أدخل وجهتك",
+    "selectLocation": "اختر موقعًا",
+    "selectDate": "اختر تاريخًا",
+    "nights": "الليالي",
+    "selectNights": "اختر الليالي",
+    "searchHotels": "البحث عن فنادق",
+    "clear": "مسح",
+    "recentlyViewed": "تمت مشاهدته مؤخرًا",
+    "findNearMe": "البحث بالقرب مني",
+    "clearSearch": "مسح البحث",
+    "currentLocation": "الموقع الحالي",
+    "loadingAddress": "جارٍ تحميل العنوان...",
+    "active": "نشط"
+  },
+  "carousel": {
+    "explore": "استكشاف"
+  },
+  "emailBanner": {
+    "title": "انتظر لحظة...",
+    "subtitle": "اشترك في نشرتنا الإخبارية!",
+    "description": "لن تفوتك أبدًا تحديثات المنتج المهمة، وآخر الأخبار، وجلسات الأسئلة والأجوبة المجتمعية. نشرتنا الإخبارية أسبوعية، كل يوم أحد.",
+    "emailPlaceholder": "بريدك الإلكتروني",
+    "subscribeButton": "اشتراك"
+  },
+  "features": {
+    "supTitle": "الميزات الرئيسية",
+    "title": {
+      "first": "تجربة",
+      "highlight": "استثنائية",
+      "second": "للحجز"
+    },
+    "description": "نقدم لك أبسط وأسهل تجربة لحجز الفنادق. مع آلاف الفنادق عالية الجودة، وأسعار تنافسية، ودعم مخصص.",
+    "easyBooking": {
+      "title": "حجز سهل",
+      "description": "عملية حجز بسيطة وسريعة بنقرات قليلة"
+    },
+    "securePayment": {
+      "title": "دفع آمن",
+      "description": "طرق دفع متعددة مع ضمان الأمان"
+    },
+    "support": {
+      "title": "دعم 24/7",
+      "description": "فريق الدعم لدينا جاهز دائمًا لمساعدتك"
+    },
+    "deals": {
+      "title": "عروض استثنائية",
+      "description": "عروض ترويجية خاصة وعروض حصرية متاحة"
+    }
+  },
+  "faq": {
+    "title": "الأسئلة المتداولة",
+    "imageAlt": "الأسئلة المتداولة",
+    "resetPassword": {
+      "question": "كيف يمكنني إعادة تعيين كلمة المرور الخاصة بي؟",
+      "answer": "يمكنك إعادة تعيين كلمة المرور بالنقر على رابط 'نسيت كلمة المرور؟' في صفحة تسجيل الدخول. سيتم إرسال بريد إلكتروني إلى عنوان بريدك الإلكتروني المسجل مع تعليمات لإعادة تعيين كلمة المرور."
+    },
+    "multipleAccounts": {
+      "question": "هل يمكنني إنشاء حسابات متعددة؟",
+      "answer": "نوصي بالاحتفاظ بحساب واحد لكل مستخدم. قد تؤدي الحسابات المتعددة للمستخدم نفسه إلى حدوث ارتباك ومشاكل محتملة مع الحجوزات والمكافآت."
+    },
+    "newsletter": {
+      "question": "كيف يمكنني الاشتراك في النشرة الإخبارية الشهرية؟",
+      "answer": "يمكنك الاشتراك في نشرتنا الإخبارية من خلال تقديم بريدك الإلكتروني في نموذج الاشتراك أسفل صفحتنا الرئيسية أو من خلال إعدادات حسابك بعد تسجيل الدخول."
+    },
+    "creditCard": {
+      "question": "هل تقومون بتخزين معلومات بطاقة الائتمان بشكل آمن؟",
+      "answer": "نعم، نستخدم تشفير قياسي في الصناعة وإجراءات أمنية لحماية معلومات الدفع الخاصة بك. نحن نلتزم بمعايير PCI DSS لضمان تخزين ومعالجة بيانات بطاقة الائتمان الخاصة بك بشكل آمن."
+    }
+  },
+  "notFound": {
+    "title": "هناك خطأ ما...",
+    "description": "الصفحة التي تحاول فتحها غير موجودة. ربما أدخلت العنوان بشكل غير صحيح، أو تم نقل الصفحة إلى عنوان URL آخر. إذا كنت تعتقد أن هذا خطأ، فيرجى الاتصال بالدعم.",
+    "button": "العودة إلى الصفحة الرئيسية"
+  },
+  "header": {
+    "navigation": "التنقل",
+    "learn": "تعلم",
+    "academy": "الأكاديمية",
+    "features": {
+      "title": "الميزات",
+      "viewAll": "عرض الكل",
+      "openSource": {
+        "title": "مفتوح المصدر",
+        "description": "الكود الخاص بنا مفتوح المصدر ومتاح على GitHub لأي شخص يرغب في استخدامه والمساهمة فيه"
+      },
+      "free": {
+        "title": "مجاني للجميع",
+        "description": "جميع خدماتنا الأساسية مجانية للاستخدام الشخصي والتجاري"
+      },
+      "documentation": {
+        "title": "التوثيق",
+        "description": "أدلة شاملة ومراجع واجهة برمجة التطبيقات لمساعدتك على البدء بسرعة"
+      },
+      "security": {
+        "title": "الأمان",
+        "description": "نأخذ الأمان على محمل الجد مع عمليات تدقيق منتظمة وأفضل ممارسات الصناعة"
+      },
+      "analytics": {
+        "title": "التحليلات",
+        "description": "تحليلات مفصلة لمساعدتك على فهم عملائك وتحسين عملك"
+      },
+      "notifications": {
+        "title": "الإشعارات",
+        "description": "إشعارات في الوقت الحقيقي لإبقائك على اطلاع بالأحداث المهمة"
+      }
+    },
+    "getStarted": {
+      "title": "ابدأ",
+      "description": "ابدأ باستخدام منصتنا اليوم وقم بتحويل تجربة حجز الفندق الخاصة بك",
+      "button": "ابدأ"
+    },
+    "menu": {
+      "application": "التطبيق",
+      "settings": "الإعدادات",
+      "dangerZone": "منطقة الخطر"
+    }
+  },
+  "hotelCard": {
+    "addedToFavorites": "تمت الإضافة إلى المفضلة بنجاح!",
+    "failedToAddFavorites": "فشلت الإضافة إلى المفضلة. يرجى المحاولة مرة أخرى.",
+    "removedFromFavorites": "تمت الإزالة من المفضلة بنجاح!",
+    "failedToRemoveFavorites": "فشلت الإزالة من المفضلة. يرجى المحاولة مرة أخرى.",
+    "removeFromFavorites": "إزالة من المفضلة",
+    "removeConfirmation": "هل أنت متأكد من أنك تريد إزالة هذا الفندق من المفضلة؟"
+  }
+} 

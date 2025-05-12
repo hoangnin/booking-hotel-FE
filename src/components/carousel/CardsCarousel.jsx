@@ -1,12 +1,14 @@
 import { Carousel } from "@mantine/carousel";
-import { Button, Paper, Text, Title, useMantineTheme } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+import { Button, Paper, Text, Title } from "@mantine/core";
 import classes from "./CardsCarousel.module.css";
 import { useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function Card({ image, title, properties, locationId }) {
+  const { t } = useTranslation();
+
   return (
     <Paper
       shadow="md"
@@ -29,7 +31,7 @@ function Card({ image, title, properties, locationId }) {
         variant="white"
         color="dark"
       >
-        Explore
+        {t("carousel.explore")}
       </Button>
     </Paper>
   );
@@ -89,8 +91,6 @@ const data = [
 
 export function CardsCarousel() {
   const autoplay = useRef(Autoplay({ delay: 2000 }));
-  const theme = useMantineTheme();
-  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const slides = data.map((item) => (
     <Carousel.Slide key={item.title}>
       <Card {...item} />
